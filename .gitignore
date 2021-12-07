@@ -3,6 +3,7 @@
 .mypy_cache/
 __pycache__/
 *.py[cod]
+*.cfg
 
 # C extensions.
 *.so
@@ -58,3 +59,6 @@ docs/_build/
 
 # Application data.
 data/
+bin/
+lib/
+share/

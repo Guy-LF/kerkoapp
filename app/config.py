@@ -4,7 +4,15 @@ from environs import Env
 from flask_babel import lazy_gettext as _
 
 from kerko.composer import Composer
-from kerko.specs import CollectionFacetSpec
+
+#CF experimental changes
+from kerko.specs import (CollectionFacetSpec,FieldSpec)
+import kerko.extractors as extractors
+import kerko.transformers as transformers
+import re
+import whoosh
+from whoosh.fields import ID
+
 
 # pylint: disable=invalid-name
 
@@ -117,6 +125,32 @@ class Config:
                         collection_key=collection_key,
                     )
                 )
+
+        #CF EXPERIMENTAL - add custom fields derived from the zotero EXTRA field
+        #load environment variable containing key:value pairs of fieldname:regex
+        custom_extra_fields = env.dict('KERKOAPP_ITEM_EXTRA_FIELDS')
+        if custom_extra_fields:
+            for newfield,newfield_re in custom_extra_fields.items():
+                #print("attempting new field: " + newfield + "-" + newfield_re)
+                self.KERKO_COMPOSER.add_field(
+                    FieldSpec(
+                        key=newfield,
+                        field_type=ID(stored=True),
+                        extractor=extractors.TransformerExtractor(
+                            extractors.ItemDataExtractor(key='extra'),
+                            transformers=[
+                                transformers.find(
+                                    regex=newfield_re,
+                                    flags=re.IGNORECASE | re.MULTILINE,
+                                    group=2,
+                                    max_matches=0,
+                                    ),  #bug here too many arguments
+                            ]
+                        )
+                    )
+                )
+
+
 
     @staticmethod
     def check_deprecated_options():

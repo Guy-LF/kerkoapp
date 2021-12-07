@@ -12,23 +12,23 @@ Blocks of newly introduced or changed code are commented `#CF` or `#CF experimen
 
 ### Planned Kerkoapp changes
 * Primary
-** provide environment variable defining novel fields 
-** extract novel fields from Zotero `EXTRA` field and pass to `Composer.add_field`
+  * provide environment variable defining novel fields 
+  * extract novel fields from Zotero `EXTRA` field and pass to `Composer.add_field`
 >This is begun in `app/config.py` but an error is being thrown by the passage of too many arguments
 >in the __init__ at line 144 should be simple to change -- just not seeing it at time of writing
 
 * Secondary
-** supress fields -- prevent rendering to template of fields such as the `EXTRA` field
-** clean up tags -- create a presentation alias for tags (example `[LL] Test` cleaned and reported as `Test` 
+  * supress fields -- prevent rendering to template of fields such as the `EXTRA` field
+  * clean up tags -- create a presentation alias for tags (example `[LL] Test` cleaned and reported as `Test` 
 
 ### Planned Template changes
 * Primary
-[] Overwrite item detail template to include customized fields
+  * Overwrite item detail template to include customized fields
 
 * Secondary
-** If item has `open access` tag  -- change "Online Resource" function to acknowledge that full text is available through the URL
-** confirm that URL above is derived from zotero `URL` field
-** If item has `Missing Files` tag - add note to item detail that the liplibrary is not in possesion of the article
+  * If item has `open access` tag  -- change "Online Resource" function to acknowledge that full text is available through the URL
+  * confirm that URL above is derived from zotero `URL` field
+  * If item has `Missing Files` tag - add note to item detail that the liplibrary is not in possesion of the article
  
 
 
