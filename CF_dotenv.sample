@@ -1,10 +1,10 @@
-#Custom Field (CF) Fork of Kerko example environment variable file 
+#Custom Field (CF) Fork of Kerko example environment variable file
 
 # Kerko variables.
 SECRET_KEY=XXXXXXXXXXXXXX
 KERKO_TITLE=Lipedema Foundation Lipedema Library
 KERKO_ZOTERO_API_KEY=XXXXXXXXXXXXX
-#test Zotero group ID (n=15 articles) 
+#test Zotero group ID (n=15 articles)
 KERKO_ZOTERO_LIBRARY_ID=4460028
 KERKO_ZOTERO_LIBRARY_TYPE=group
 KERKO_PRINT_ITEM_LINK=False
@@ -27,13 +27,8 @@ KERKOAPP_CHILD_INCLUDE_RE="^\[LL\] Shareable"
 KERKOAPP_TAG_INCLUDE_RE="^\[LL\]"
 KERKOAPP_TAG_EXCLUDE_RE="Lip-Library"
 
-#CF Experimental extra field names and related regex expressions
-KERKOAPP_ITEM_EXTRA_FIELDS = "\n
-    PMID='PMID:\s?(?P<pmid>.*)$',\n
-    PMCID='PMCID:\s?(?P<pmcid>.*)$',\n
-    LFAWARD='LFAward:\s?(?P<award>.*)$'\n
-    "
+# Remove default fields that are replaced with customized versions.
+KERKOAPP_EXCLUDE_DEFAULT_FIELDS=data,z_extra
 
 # Docker container variables.
 MODULE_NAME=kerkoapp
-

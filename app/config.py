@@ -1,18 +1,16 @@
 import pathlib
+import re  # CF
+from functools import partial  # CF
 
 from environs import Env
 from flask_babel import lazy_gettext as _
-
+from kerko import extractors, transformers  # CF
 from kerko.composer import Composer
+from kerko.specs import CollectionFacetSpec, FieldSpec  # CF
+from whoosh.fields import ID, STORED, TEXT  # CF
 
-#CF experimental changes
-from kerko.specs import (CollectionFacetSpec,FieldSpec)
-import kerko.extractors as extractors
-import kerko.transformers as transformers
-import re
-import whoosh
-from whoosh.fields import ID
-
+from .specs import LabeledFieldSpec  # CF
+from .transformers import data_extra_cleaner, extra_cleaner  # CF
 
 # pylint: disable=invalid-name
 
@@ -126,31 +124,99 @@ class Config:
                     )
                 )
 
-        #CF EXPERIMENTAL - add custom fields derived from the zotero EXTRA field
-        #load environment variable containing key:value pairs of fieldname:regex
-        custom_extra_fields = env.dict('KERKOAPP_ITEM_EXTRA_FIELDS')
-        if custom_extra_fields:
-            for newfield,newfield_re in custom_extra_fields.items():
-                #print("attempting new field: " + newfield + "-" + newfield_re)
-                self.KERKO_COMPOSER.add_field(
-                    FieldSpec(
-                        key=newfield,
-                        field_type=ID(stored=True),
-                        extractor=extractors.TransformerExtractor(
-                            extractors.ItemDataExtractor(key='extra'),
-                            transformers=[
-                                transformers.find(
-                                    regex=newfield_re,
-                                    flags=re.IGNORECASE | re.MULTILINE,
-                                    group=2,
-                                    max_matches=0,
-                                    ),  #bug here too many arguments
-                            ]
-                        )
+        # CF searchable custom fields.
+        for field_key, field_info in {
+            # The following fields are useful as search keys.
+            'cf_pmid': {
+                'label': 'PMID',
+                're': r'^\s*PMID\s*:\s*(.*)$',
+                'searchable': True,
+            },
+            'cf_pmcid': {
+                'label': 'PMCID',
+                're': r'^\s*PMCID\s*:\s*(.*)$',
+                'searchable': True,
+            },
+            # The following IDs are often to short to be useful in searches.
+            'cf_lfaward': {
+                'label': 'Lipedema Foundation Award',
+                're': r'^\s*LFAward\s*:\s*(.*)$',
+                'searchable': False,
+            },
+            # Kerko already indexes the following fields, thus they don't need
+            # to be searchable. We still need to store them because they will be
+            # cleaned up from the 'extra' field.
+            'cf_doi': {
+                'label': 'DOI',
+                're': r'^\s*DOI\s*:\s*(.*)$',
+                'searchable': False,
+            },
+            'cf_isbn': {
+                'label': 'ISBN',
+                're': r'^\s*ISBN\s*:\s*(.*)$',
+                'searchable': False,
+            },
+            'cf_issn': {
+                'label': 'ISSN',
+                're': r'^\s*ISSN\s*:\s*(.*)$',
+                'searchable': False,
+            },
+        }.items():
+            self.KERKO_COMPOSER.add_field(
+                LabeledFieldSpec(
+                    key=field_key,
+                    label=field_info['label'],
+                    field_type=ID(  # A text chain will be needed if text is to be handled.
+                        **self.KERKO_COMPOSER.primary_id_kwargs,  # High field boost, good for IDs.
+                        stored=True,
+                    ) if field_info['searchable'] else STORED,
+                    scopes=['all', 'metadata'] if field_info['searchable'] else None,
+                    extractor=extractors.TransformerExtractor(
+                        extractor=extractors.ItemDataExtractor(key='extra'),
+                        transformers=[
+                            transformers.find(
+                                regex=field_info['re'],
+                                flags=re.IGNORECASE | re.MULTILINE,
+                                max_matches=0,
+                            )
+                        ]
                     )
                 )
+            )
 
-
+        # CF replace the default 'data' and 'z_extra' fields by ones where the
+        # 'extra' field is stripped of unwanted lines, i.e., stripped of any
+        # line that matches the regular expression below.
+        extra_cleanup_pattern = re.compile(
+            r'^\s*(PMID|PMCID|LFAward|DOI|ISBN|ISSN).+', re.IGNORECASE
+        )
+        # CAUTION: Adding the following fields requires this env setting:
+        #   KERKOAPP_EXCLUDE_DEFAULT_FIELDS=data,z_extra
+        self.KERKO_COMPOSER.add_field(
+            FieldSpec(
+                key='data',
+                field_type=STORED,
+                extractor=extractors.TransformerExtractor(
+                    extractor=extractors.RawDataExtractor(),
+                    transformers=[
+                        partial(data_extra_cleaner, pattern=extra_cleanup_pattern),
+                    ],
+                ),
+            )
+        )
+        self.KERKO_COMPOSER.add_field(
+            FieldSpec(
+                key='z_extra',
+                field_type=TEXT(**self.KERKO_COMPOSER.primary_text_kwargs),
+                scopes=['all', 'metadata'],
+                extractor=extractors.TransformerExtractor(
+                    extractor=extractors.ItemDataExtractor(key='extra'),
+                    transformers=[
+                        partial(extra_cleaner, pattern=extra_cleanup_pattern),
+                    ],
+                ),
+            )
+        )
 
     @staticmethod
     def check_deprecated_options():
