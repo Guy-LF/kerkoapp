@@ -10,7 +10,7 @@ from kerko.specs import CollectionFacetSpec, FieldSpec  # CF
 from whoosh.fields import ID, STORED, TEXT  # CF
 
 from .specs import LabeledFieldSpec  # CF
-from .transformers import data_extra_cleaner, extra_cleaner  # CF
+from .transformers import clean_string, clean_data_extra  # CF
 
 # pylint: disable=invalid-name
 
@@ -220,7 +220,7 @@ class Config:
                 extractor=extractors.TransformerExtractor(
                     extractor=extractors.RawDataExtractor(),
                     transformers=[
-                        partial(data_extra_cleaner, pattern=extra_cleanup_pattern),
+                        partial(clean_data_extra, pattern=extra_cleanup_pattern),
                     ],
                 ),
             )
@@ -233,7 +233,7 @@ class Config:
                 extractor=extractors.TransformerExtractor(
                     extractor=extractors.ItemDataExtractor(key='extra'),
                     transformers=[
-                        partial(extra_cleaner, pattern=extra_cleanup_pattern),
+                        partial(clean_string, pattern=extra_cleanup_pattern),
                     ],
                 ),
             )

@@ -8,14 +8,15 @@ from copy import deepcopy
 from itertools import filterfalse
 
 
-def data_extra_cleaner(value, pattern):
+def clean_data_extra(value, pattern):
     if 'extra' in value:
         value = deepcopy(value)  # Preserve original data, might be used by other extractors.
-        value['extra'] = extra_cleaner(value['extra'], pattern)
+        value['extra'] = clean_string(value['extra'], pattern)
     return value
 
 
-def extra_cleaner(value, pattern):
+def clean_string(value, pattern):
+    """Remove from a string value the lines that match the given pattern."""
     return '\n'.join(
         filterfalse(pattern.match, value.split('\n'))
     ).strip()
