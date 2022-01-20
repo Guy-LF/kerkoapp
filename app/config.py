@@ -124,58 +124,79 @@ class Config:
                     )
                 )
 
-        # CF searchable custom fields.
-        for field_key, field_info in {
-            # The following fields are useful as search keys.
-            'cf_pmid': {
-                'label': 'PMID',
-                're': r'^\s*PMID\s*:\s*(.*)$',
-                'searchable': True,
+        # CF template overrides.
+        self.KERKO_TEMPLATE_ITEM = 'kerko-overrides/item.html.jinja2'
+
+        # CF custom fields, in rendering order.
+        for new_field in [
+            # Kerko already indexes ISBN, ISSN and DOI, thus they don't need to
+            # be searchable. We still need to store them because they will be
+            # cleaned up from the 'extra' field and rendered separately.
+            {
+                'kwargs': dict(
+                    key='cf_isbn',
+                    label='ISBN',
+                    field_type=STORED,
+                    scopes=None,
+                ),
+                're': r'^\s*ISBN\s*:\s*(.*)$',
             },
-            'cf_pmcid': {
-                'label': 'PMCID',
+            {
+                'kwargs': dict(
+                    key='cf_issn',
+                    label='ISSN',
+                    field_type=STORED,
+                    scopes=None,
+                ),
+                're': r'^\s*ISSN\s*:\s*(.*)$',
+            },
+            {
+                'kwargs': dict(
+                    key='cf_doi',
+                    label='DOI',
+                    field_type=STORED,
+                    scopes=None,
+                ),
+                're': r'^\s*DOI\s*:\s*(.*)$',
+            },
+            # The following fields are also useful as search keys.
+            {
+                'kwargs': dict(
+                    key='cf_pmid',
+                    label='PMID',
+                    field_type=ID(**self.KERKO_COMPOSER.primary_id_kwargs, stored=True),
+                    scopes=['all', 'metadata'],
+                ),
+                're': r'^\s*PMID\s*:\s*(.*)$',
+            },
+            {
+                'kwargs': dict(
+                    key='cf_pmcid',
+                    label='PMCID',
+                    field_type=ID(**self.KERKO_COMPOSER.primary_id_kwargs, stored=True),
+                    scopes=['all', 'metadata'],
+                ),
                 're': r'^\s*PMCID\s*:\s*(.*)$',
-                'searchable': True,
             },
             # The following IDs are often to short to be useful in searches.
-            'cf_lfaward': {
-                'label': 'Lipedema Foundation Award',
+            {
+                'kwargs': dict(
+                    key='cf_lfaward',
+                    label='Lipedema Foundation Award',
+                    field_type=STORED,
+                    scopes=None,
+                ),
                 're': r'^\s*LFAward\s*:\s*(.*)$',
-                'searchable': False,
             },
-            # Kerko already indexes the following fields, thus they don't need
-            # to be searchable. We still need to store them because they will be
-            # cleaned up from the 'extra' field.
-            'cf_doi': {
-                'label': 'DOI',
-                're': r'^\s*DOI\s*:\s*(.*)$',
-                'searchable': False,
-            },
-            'cf_isbn': {
-                'label': 'ISBN',
-                're': r'^\s*ISBN\s*:\s*(.*)$',
-                'searchable': False,
-            },
-            'cf_issn': {
-                'label': 'ISSN',
-                're': r'^\s*ISSN\s*:\s*(.*)$',
-                'searchable': False,
-            },
-        }.items():
+        ]:
             self.KERKO_COMPOSER.add_field(
                 LabeledFieldSpec(
-                    key=field_key,
-                    label=field_info['label'],
-                    field_type=ID(  # A text chain will be needed if text is to be handled.
-                        **self.KERKO_COMPOSER.primary_id_kwargs,  # High field boost, good for IDs.
-                        stored=True,
-                    ) if field_info['searchable'] else STORED,
-                    scopes=['all', 'metadata'] if field_info['searchable'] else None,
+                    **new_field['kwargs'],
                     extractor=extractors.TransformerExtractor(
                         extractor=extractors.ItemDataExtractor(key='extra'),
                         transformers=[
                             transformers.find(
-                                regex=field_info['re'],
+                                regex=new_field['re'],
                                 flags=re.IGNORECASE | re.MULTILINE,
                                 max_matches=0,
                             )

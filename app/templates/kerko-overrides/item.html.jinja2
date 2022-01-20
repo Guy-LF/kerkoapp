@@ -1,0 +1,20 @@
+{# CF custom template #}
+{% extends 'kerko/item.html.jinja2' %}
+
+{% block item_fields_zotero %}
+    {{ super() }}
+    {%- for key, spec in config.KERKO_COMPOSER.fields.items() if spec.__class__.__name__ == 'LabeledFieldSpec' and item.get(key) %}
+        {%- if key == 'cf_doi' %}
+            {{ field(spec.label, item.get(key)|map('trim')|map('escape')|map('kerko_urlize_doi', target='_blank')|join(', ')) }}
+        {%- elif key == 'cf_pmid' %}
+            {%- set pmid %}
+                {%- for value in item.get(key) %}
+                    {%- if not loop.first %}, {% endif %}{{ '<a href="https://pubmed.ncbi.nlm.nih.gov/%(pmid)s/" target="_blank">%(pmid)s</a>'|format(pmid=value|trim|urlencode) }}
+                {%- endfor %}
+            {%- endset %}
+            {{ field(spec.label, pmid) }}
+        {%- else %}
+            {{ field(spec.label, item.get(key)|map('trim')|map('escape')|map('urlize', target='_blank')|join(', ')) }}
+        {%- endif %}
+    {%- endfor %}
+{% endblock item_fields_zotero %}
