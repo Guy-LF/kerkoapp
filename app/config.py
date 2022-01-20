@@ -4,13 +4,14 @@ from functools import partial  # CF
 
 from environs import Env
 from flask_babel import lazy_gettext as _
-from kerko import extractors, transformers  # CF
+from kerko import codecs, extractors, transformers  # CF
 from kerko.composer import Composer
-from kerko.specs import CollectionFacetSpec, FieldSpec  # CF
+from kerko.specs import CollectionFacetSpec, FieldSpec, FlatFacetSpec  # CF
 from whoosh.fields import ID, STORED, TEXT  # CF
+from whoosh.query import Term  # CF
 
 from .specs import LabeledFieldSpec  # CF
-from .transformers import clean_string, clean_data_extra  # CF
+from .transformers import clean_data_extra, clean_lines  # CF
 
 # pylint: disable=invalid-name
 
@@ -211,8 +212,8 @@ class Config:
         extra_cleanup_pattern = re.compile(
             r'^\s*(PMID|PMCID|LFAward|DOI|ISBN|ISSN).+', re.IGNORECASE
         )
-        # CAUTION: Adding the following fields requires this env setting:
-        #   KERKOAPP_EXCLUDE_DEFAULT_FIELDS=data,z_extra
+        # CAUTION: This requires that 'data' and 'z_extra' be added to the
+        # KERKOAPP_EXCLUDE_DEFAULT_FIELDS environment variable.
         self.KERKO_COMPOSER.add_field(
             FieldSpec(
                 key='data',
@@ -233,9 +234,58 @@ class Config:
                 extractor=extractors.TransformerExtractor(
                     extractor=extractors.ItemDataExtractor(key='extra'),
                     transformers=[
-                        partial(clean_string, pattern=extra_cleanup_pattern),
+                        partial(clean_lines, pattern=extra_cleanup_pattern),
                     ],
                 ),
+            )
+        )
+
+        # CF replace the default 'text_tags' field and 'facet_tag' facet by ones
+        # where the tags are cleaned up using the regular expression below.
+        tag_cleanup_pattern = re.compile(r'^\s*\[LL\]\s*', re.IGNORECASE)
+        # CAUTION: This requires that 'text_tags' be added to the
+        # KERKOAPP_EXCLUDE_DEFAULT_FIELDS environment variable.
+        self.KERKO_COMPOSER.add_field(
+            FieldSpec(
+                key='text_tags',
+                field_type=TEXT(**self.KERKO_COMPOSER.secondary_title_text_kwargs),
+                scopes=['all', 'metadata'],
+                extractor=extractors.TransformerExtractor(
+                    extractor=extractors.TagsTextExtractor(
+                        include_re=self.KERKO_COMPOSER.default_tag_include_re,
+                        exclude_re=self.KERKO_COMPOSER.default_tag_exclude_re
+                    ),
+                    transformers=[
+                        lambda value: tag_cleanup_pattern.sub('', value) if value else value,
+                    ],
+                )
+            )
+        )
+        # CAUTION: This requires that 'facet_tag' be added to the
+        # KERKOAPP_EXCLUDE_DEFAULT_FACETS environment variable.
+        self.KERKO_COMPOSER.add_facet(
+            FlatFacetSpec(
+                key='facet_tag',
+                title=_('Topic'),
+                filter_key='topic',
+                weight=100,
+                field_type=ID(stored=True),
+                extractor=extractors.TransformerExtractor(
+                    extractor=extractors.TagsFacetExtractor(
+                        include_re=self.KERKO_COMPOSER.default_tag_include_re,
+                        exclude_re=self.KERKO_COMPOSER.default_tag_exclude_re
+                    ),
+                    transformers=[
+                        lambda value: list({tag_cleanup_pattern.sub('', s) for s in value}) if value else value,
+                    ],
+                ),
+                codec=codecs.BaseFacetCodec(),
+                missing_label=None,
+                sort_key=['label'],
+                sort_reverse=False,
+                item_view=True,
+                allow_overlap=True,
+                query_class=Term
             )
         )
 

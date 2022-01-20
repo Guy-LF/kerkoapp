@@ -16,19 +16,20 @@ KERKO_DOWNLOAD_CITATIONS_LINK=False
 FLASK_APP=kerkoapp.py
 FLASK_ENV=production
 
-#include\exclude from sync any items with the indicated tags or portion of tag
+# Include/exclude from sync any items with the indicated tags or portion of tag.
 KERKOAPP_ITEM_INCLUDE_RE="^\[LL\]"
 KERKOAPP_ITEM_EXCLUDE_RE="^\[LL\] Confidential"
 
-#only attachments\children with the listed tag of can be published
+# Only attachments/children with the listed tag of can be published.
 KERKOAPP_CHILD_INCLUDE_RE="^\[LL\] Shareable"
 
-#for display purposes only incorporate tags related to the project ([LL] prefix)
+# For display purposes only incorporate tags related to the project ([LL] prefix).
 KERKOAPP_TAG_INCLUDE_RE="^\[LL\]"
-KERKOAPP_TAG_EXCLUDE_RE="Lip-Library"
+KERKOAPP_TAG_EXCLUDE_RE="^\[LL\] Kerko Lip-Library"
 
-# Remove default fields that are replaced with customized versions.
-KERKOAPP_EXCLUDE_DEFAULT_FIELDS=data,z_extra
+# Remove some of the default fields and facets (replaced with customized versions).
+KERKOAPP_EXCLUDE_DEFAULT_FIELDS=data,z_extra,text_tags
+KERKOAPP_EXCLUDE_DEFAULT_FACETS=facet_tag
 
 # Docker container variables.
 MODULE_NAME=kerkoapp
