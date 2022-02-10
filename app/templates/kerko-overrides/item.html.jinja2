@@ -9,7 +9,7 @@
         {%- elif key == 'cf_pmid' %}
             {%- set pmid %}
                 {%- for value in item.get(key) %}
-                    {%- if not loop.first %}, {% endif %}{{ '<a href="https://pubmed.ncbi.nlm.nih.gov/%(pmid)s/" target="_blank">%(pmid)s</a>'|format(pmid=value|trim|urlencode) }}
+                    {%- if not loop.first %}, {% endif %}{{ '<a href="https://pubmed.ncbi.nlm.nih.gov/%(pmid)s/" target="_blank">Access article though Pubmed - %(pmid)s</a>'|format(pmid=value|trim|urlencode) }}
                 {%- endfor %}
             {%- endset %}
             {{ field(spec.label, pmid) }}
