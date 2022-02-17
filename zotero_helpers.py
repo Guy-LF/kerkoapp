@@ -46,7 +46,7 @@ class Item():
             self.marcom_note = None
         else:
             self.children = zot.children(self.key)
-            elf.marcom_note = self.get_matched_notes()
+            self.marcom_note = self.get_matched_notes()
         
         self.tag_kill_list = ["[LT]","[LL]"]
         self.lookup = {
