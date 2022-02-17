@@ -39,9 +39,15 @@ class Item():
         if self.zotero_item['data']['tags']:
             for x in self.zotero_item['data']['tags']:
                 self.tags.append(x['tag'])
-
-        self.children = zot.children(self.key)
-        self.marcom_note = self.get_matched_notes()
+        
+        #set children or set to none of attachment
+        if self.zotero_item['data']['itemType'] == 'attachment':
+            self.children = None
+            self.marcom_note = None
+        else:
+            self.children = zot.children(self.key)
+            elf.marcom_note = self.get_matched_notes()
+        
         self.tag_kill_list = ["[LT]","[LL]"]
         self.lookup = {
                 '[LF] Testtag':'[LT] Testtag2',
