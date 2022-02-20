@@ -13,6 +13,15 @@
                 {%- endfor %}
             {%- endset %}
             {{ field(spec.label, pmid) }}
+
+	{%- elif key == 'cf_pmcid' %}
+            {%- set pmcid %}
+                {%- for value in item.get(key) %}
+                    {%- if not loop.first %}, {% endif %}{{ '<a href="https://www.ncbi.nlm.nih.gov/labs/pmc/articles/%(pmcid)s/" target="_blank">Access article for free though Pubmed Central- %(pmcid)s</a>'|format(pmcid=value|trim|urlencode) }}
+                {%- endfor %}
+            {%- endset %}
+            {{ field(spec.label, pmcid) }}
+
         {%- else %}
             {{ field(spec.label, item.get(key)|map('trim')|map('escape')|map('urlize', target='_blank')|join(', ')) }}
         {%- endif %}
