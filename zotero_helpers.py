@@ -148,18 +148,21 @@ def make_item_inventory(zot):
     zot = get_library(max=1)
     item_list = zot.everything(zot.top())
     items = []
-
+    j = 1
     for item in item_list:
-        print(item['key'])
+        print(f'{j}/{len(item_list)} - {item["key"]}')
         items.append(Item(zot,item)) #create Item objects, 
-
     return(items)
 
 
 if __name__ == "__main__":
     items = make_item_inventory(get_library())
+    i = len(items)
+    j = 1
     for x in items:
+        print(f'saving {j} or {i} items') 
         x.save_item()
+        j += 1
     pass
 
 #snippets
