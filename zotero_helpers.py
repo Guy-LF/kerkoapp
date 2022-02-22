@@ -146,6 +146,7 @@ def make_item_inventory(zot):
 
     #get zotero library
     zot = get_library(max=1)
+    zot.add_parameters(tag="[LF] Lipedema || [LF] Lipedema related or referenced")
     item_list = zot.everything(zot.top())
     items = []
     j = 1
