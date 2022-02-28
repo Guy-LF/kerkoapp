@@ -1,6 +1,16 @@
 {# CF custom template #}
 {% extends 'kerko/item.html.jinja2' %}
-
+            {%- block metas %}
+                <meta charset="utf-8"> {# CAUTION: Keep this within the first 1024 characters. #}
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:site" content="@LipedemaFndn" />
+		<meta name="twitter:creator" content="@LipedemaFndn" />
+		<meta property="og:url" content="https://www.lipedema.org/library" />
+		<meta property="og:title" content="Lipedema Legato Library: " />
+		<meta property="og:description" content="An orderly approach to a complex disorder" />
+		<meta property="og:image" content="https://images.squarespace-cdn.com/content/v1/5775899ac534a5e813c050db/d7483caa-40dc-4ea7-8cdc-9d141d382a54/RGB_100ppi_transparent_horizontal_web+test+crop_low3.png?format=1500w" />
+            {%- endblock metas %}
 {% block item_fields_zotero %}
     {{ super() }}
     {%- for key, spec in config.KERKO_COMPOSER.fields.items() if spec.__class__.__name__ == 'LabeledFieldSpec' and item.get(key) %}
