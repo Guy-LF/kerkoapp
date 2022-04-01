@@ -60,6 +60,7 @@ class Item():
                 '[LF] Primary data': '[LL] Original studies and data',
                 '[LF] Therapeutics': '[LL] Therapeutics',
                 '[LF] Nutrition': '[LL] Personal management (diet, excercise, nutrition)',
+                '[LF] Confidential':'[LL] Confidential',
                 }
         #this starts as identical to the zotero item, but is updated
         #by class methods (eg, refresh_tags)
