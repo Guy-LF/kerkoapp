@@ -29,7 +29,7 @@ KERKOAPP_TAG_EXCLUDE_RE="^\[LL\] Kerko Lip-Library"
 
 # Remove some of the default fields and facets (replaced with customized versions).
 KERKOAPP_EXCLUDE_DEFAULT_FIELDS=data,z_extra,text_tags
-KERKOAPP_EXCLUDE_DEFAULT_FACETS=facet_tag
+KERKOAPP_EXCLUDE_DEFAULT_FACETS=facet_tag,facet_link
 
 # Docker container variables.
 MODULE_NAME=kerkoapp
