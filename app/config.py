@@ -7,9 +7,10 @@ from flask_babel import lazy_gettext as _
 from kerko import codecs, extractors, transformers  # CF
 from kerko.composer import Composer
 from kerko.specs import CollectionFacetSpec, FieldSpec, FlatFacetSpec  # CF
-from whoosh.fields import ID, STORED, TEXT  # CF
+from whoosh.fields import BOOLEAN, ID, STORED, TEXT  # CF
 from whoosh.query import Term  # CF
 
+from .extractors import MatchesTagExtractor  # CF
 from .specs import LabeledFieldSpec  # CF
 from .transformers import clean_data_extra, clean_lines  # CF
 
@@ -127,6 +128,7 @@ class Config:
 
         # CF template overrides.
         self.KERKO_TEMPLATE_ITEM = 'kerko-overrides/item.html.jinja2'
+        self.KERKO_TEMPLATE_SEARCH = 'kerko-overrides/search.html.jinja2'
 
         # CF custom fields, in rendering order.
         for new_field in [
@@ -242,7 +244,7 @@ class Config:
 
         # CF replace the default 'text_tags' field and 'facet_tag' facet by ones
         # where the tags are cleaned up using the regular expression below.
-        tag_cleanup_pattern = re.compile(r'^\s*\[LL\]\s*', re.IGNORECASE)
+        tag_cleanup_pattern = re.compile(r'^\s*\[L(L|F)\]\s*', re.IGNORECASE)
         # CAUTION: This requires that 'text_tags' be added to the
         # KERKOAPP_EXCLUDE_DEFAULT_FIELDS environment variable.
         self.KERKO_COMPOSER.add_field(
@@ -288,6 +290,51 @@ class Config:
                 query_class=Term
             )
         )
+
+        # CF add "open access" facet.
+        self.KERKO_COMPOSER.add_facet(
+            FlatFacetSpec(
+                key='lf_facet_open_access',
+                title=_('Publication'),
+                filter_key='openaccess',
+                weight=320,  # Position after the "Publication year" facet.
+                field_type=ID(stored=True),
+                extractor=extractors.TransformerExtractor(
+                    extractor=extractors.TagsFacetExtractor(
+                        include_re=r'^\[LF\] Open Access$'
+                    ),
+                    transformers=[
+                        lambda value: list({tag_cleanup_pattern.sub('', s) for s in value}) if value else value,
+                    ],
+                ),
+                codec=codecs.BaseFacetCodec(),
+                missing_label=None,
+                sort_key=['label'],
+                sort_reverse=False,
+                item_view=True,
+                allow_overlap=True,
+                query_class=Term
+            )
+        )
+        # CF add "open access" boolean field.
+        self.KERKO_COMPOSER.add_field(
+            FieldSpec(
+                key='lf_open_access',
+                field_type=BOOLEAN(stored=True),
+                extractor=MatchesTagExtractor(r'\[LF\] Open Access$', re.IGNORECASE),
+            )
+        )
+        # CF add "missing files" boolean field.
+        self.KERKO_COMPOSER.add_field(
+            FieldSpec(
+                key='lf_missing_files',
+                field_type=BOOLEAN(stored=True),
+                extractor=MatchesTagExtractor(r'^\[LF\] Missing files$', re.IGNORECASE),
+            )
+        )
+
+        # CF override list of fields to retrieve with search results.
+        self.KERKO_RESULTS_FIELDS = ['id', 'attachments', 'bib', 'coins', 'data', 'url', 'lf_open_access']
 
     @staticmethod
     def check_deprecated_options():

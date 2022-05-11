@@ -38,3 +38,10 @@
         {%- endif %}
     {%- endfor %}
 {% endblock item_fields_zotero %}
+
+{% block item_field_attachments %}
+    {{ super }}
+    {%- if item.lf_missing_files %}
+        {{- field(_("Remark"), _("The {} is not currently in possession of this resource.").format(config.KERKO_TITLE)) }}
+    {%- endif %}
+{% endblock item_field_attachments %}
