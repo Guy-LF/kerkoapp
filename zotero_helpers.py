@@ -61,6 +61,7 @@ class Item():
                 '[LF] Therapeutics': '[LL] Therapeutics',
                 '[LF] Nutrition': '[LL] Personal management (diet, excercise, nutrition)',
                 '[LF] Confidential':'[LL] Confidential',
+                '[LF] Patient experience and beliefs':'[LL] Patient journey',
                 }
         #this starts as identical to the zotero item, but is updated
         #by class methods (eg, refresh_tags)

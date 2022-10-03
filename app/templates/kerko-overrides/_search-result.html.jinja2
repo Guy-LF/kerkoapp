@@ -2,7 +2,7 @@
 {% extends 'kerko/_search-result.html.jinja2' %}
 
 {% block search_result_link_url %}
-    <a class="{% block search_item_link_btn_classes %}btn btn-sm btn-link text-nowrap{% endblock %}" href="{{ result.url|kerko_url_sanitize|escape }}" target="_blank">
+   <a class="{% block search_item_link_btn_classes %}btn btn-sm btn-link text-nowrap{% endblock %}" href="{{ result.url|kerko_url_sanitize|escape }}" target="_blank">
         <span class="fas fa-external-link-alt mr-1" aria-hidden="true"></span>{{ _('View{} on {}').format(_(' for free') if result.lf_open_access else '', result.url|kerko_url_hostname|escape) -}}
     </a>
 {% endblock search_result_link_url %}

@@ -32,11 +32,11 @@ class Config:
 
     def __init__(self):
         app_dir = pathlib.Path(env.str('FLASK_APP')).parent.absolute()
+        self.EXPLAIN_TEMPLATE_LOADING = True
 
         self.check_deprecated_options()
 
         self.SECRET_KEY = env.str('SECRET_KEY')
-        self.EXPLAIN_TEMPLATE_LOADING = False
         self.PROXY_FIX = env.bool('PROXY_FIX', False)
         self.BABEL_DEFAULT_LOCALE = env.str('BABEL_DEFAULT_LOCALE', 'en')
         self.BABEL_DEFAULT_TIMEZONE = env.str('BABEL_DEFAULT_TIMEZONE', 'UTC')
