@@ -28,7 +28,7 @@ def main():
         "access_token_secret" : "REPLACE_THIS_WITH_YOUR_ACCESS_TOKEN_SECRET"
     }
  
-    auth = tweepy.OAuthHandler(
+    auth = tweepy.OAuth1UserHandler(
             twitter_auth_keys['consumer_key'],
             twitter_auth_keys['consumer_secret']
             )
