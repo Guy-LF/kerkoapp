@@ -39,6 +39,9 @@ def main():
             )
     api = tweepy.API(auth)
  
+
+    #need section to iterate over docket, extract info, and compose tweet
+    
     # Upload image
     media = api.media_upload("lf_legato.jpg")
  
@@ -49,6 +52,7 @@ def main():
     
 
 def getdocket():
+    """get rss feed and isolate postable information"""
     feed = feedparser.parse("http://feedparser.org/docs/examples/atom10.xml")
     #print('Number of posts in RSS feede :', len(feed.entries))
     docket = []
@@ -57,13 +61,19 @@ def getdocket():
       
         # !!! need an if/then to compare publication date to today's date 
       
-      
         docket.append({
             "title":entry.title,
             "description":entry.description,
-            "url":entry.url}
+            "url":entry.url,
+            #lf funded tag?
+            }
             )
     return docket
-   
+
+def compose_tweet(docket_item):
+    """return text, media intended for posting to twitter"""
+    return
+
+
 if __name__ == "__main__":
     main()
