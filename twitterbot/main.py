@@ -71,7 +71,8 @@ def getdocket():
     return docket
 
 def compose_tweet(docket_item):
-    """return text, media intended for posting to twitter"""
+    """return text, media intended for posting to twitter
+    likey needs to pick different media depending on whether project is LF funded or not (maybe other tags as well) """
     return
 
 
