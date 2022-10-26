@@ -1,5 +1,6 @@
 import tweepy
- 
+import feedparser
+
 #####
 """
 generic twitter posting script with image
@@ -44,6 +45,25 @@ def main():
     # Post tweet with image
     tweet = "this is test tweet"
     post_result = api.update_status(status=tweet, media_ids=[media.media_id])
- 
+
+    
+
+def getdocket():
+    feed = feedparser.parse("http://feedparser.org/docs/examples/atom10.xml")
+    #print('Number of posts in RSS feede :', len(feed.entries))
+    docket = []
+    for entry in feed.entries:
+        date_tuple = entry.created_parsed
+      
+        # !!! need an if/then to compare publication date to today's date 
+      
+      
+        docket.append({
+            "title":entry.title,
+            "description":entry.description,
+            "url":entry.url}
+            )
+    return docket
+   
 if __name__ == "__main__":
     main()
