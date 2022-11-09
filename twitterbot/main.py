@@ -6,16 +6,17 @@ import feedparser
 generic twitter posting script with image
 
 intent is to 
-1) monitor legato RSS feed for new posts
-2) compose a standard form text from the RSS data
+1) monitor legato\kerko ATOM feed for new posts
+1a) may be necessary to identify a signal in ATOM that implies whether there is permission from the curator to post this item to social media.
+
+2) compose a standard form text from the ATOM syndication data
     eg  "[first author] - [truncated title ...]  [legato permalink] #lipedema #medtwitter"
-3) include media image -  "New Lipedema Research"
+3) include media image -  eg., "NewLipedemaResearch.jpg"
 
 2b) bonus points -- edit media image dynamically to include entire citation and/or abstract
-2c) bonus points -- modify or select image dependent on tags (eg, LF Funded, Imaging, Genetics, open access etc)
+2c) bonus points -- modify or select image dependent on tags (eg, LF Funded, Imaging, Genetics, open access, etc)
 
 4) if multiple new items, space tweets out over time.  Do not tweet all at once.
-
 4c)  bonus points -- trigger some notification to communications staff to acknowledge that a tweet was made. possibly twitter DM to self. 
 """
 ####
@@ -54,7 +55,7 @@ def main():
 def getdocket():
     """get rss feed and isolate postable information"""
     feed = feedparser.parse("http://feedparser.org/docs/examples/atom10.xml")
-    #print('Number of posts in RSS feede :', len(feed.entries))
+    #print('Number of posts in RSS feed :', len(feed.entries))
     docket = []
     for entry in feed.entries:
         date_tuple = entry.created_parsed
@@ -72,7 +73,8 @@ def getdocket():
 
 def compose_tweet(docket_item):
     """return text, media intended for posting to twitter
-    likey needs to pick different media depending on whether project is LF funded or not (maybe other tags as well) """
+    likey needs to pick different media depending on whether project is LF funded or not (maybe other tags as well) 
+    """
     return
 
 
