@@ -6,8 +6,8 @@ import feedparser
 generic SM posting script with image
 
 intent is to 
-1) monitor legato\kerko ATOM feed for new posts
-1a) may be necessary to identify a signal in ATOM that implies whether there is permission from the curator to post this item to social media.
+1) monitor legato\kerko main ATOM feed for new posts
+1a) monitor legato search feeds for LF Funded and Open Access items
 
 2) compose a standard form text from the ATOM syndication data
     eg  "[first author] - [truncated title ...]  [legato permalink] #lipedema #medtwitter"
@@ -46,9 +46,16 @@ class Twitter():
         api = tweepy.API(auth)
         return(api)
 
-    def post():
+    def post(open_access=False, funded=False):
         # Upload image  (this may need to be platform specific)
         media = api.media_upload("lf_legato.jpg")
+        if open_access:
+            media = api.media_upload("lf_legato.jpg")
+        if funded:
+            media = api.media_upload("lf_legato.jpg")
+        if (funded and open_access):
+            media = api.media_upload("lf_legato.jpg")
+        
 
         # Post tweet with image
         tweet = "this is test tweet"
@@ -64,41 +71,60 @@ class LinkedIn():
     
     
 def getdocket():
-    """get rss feed and isolate postable information"""
+    """get ATOM feeds and isolate postable information"""
     feed = feedparser.parse("http://feedparser.org/docs/examples/atom10.xml")
+    
+    ##create list of ID's associated with specific tags
+    openaccess = [x for x.guid in feedparser.parse("http://feedparser.org/docs/examples/atom10.xml")]
+    lf_funded = [x for x.guid in feedparser.parse("http://feedparser.org/docs/examples/atom10.xml")
+    
     #print('Number of posts in RSS feed :', len(feed.entries))
     docket = []
     for entry in feed.entries:
+        oa = False
+        funded = False
+        
         date_tuple = entry.created_parsed
-      
-        # !!! need an if/then to compare publication date to today's date 
+        # !!! need an if/then to compare ATOM publication date to today's date 
+                 
+        if entry.guid in openaccess:
+            oa = True
+        if entry.guid in lf_funded:
+            funded = True
       
         docket.append({
             "title":entry.title,
             "description":entry.description,
+            # first author
+            # article publication date (year)
             "url":entry.url,
-            #lf funded tag?
+            "open access":oa,
+            "funded":funded,
             }
             )
     return docket
 
 #need section to iterate over docket, extract info, and compose post
-de
+def parse_docket(docket):
+    for item in docket:
+        compose_post(item)
+    return
 
-
-def compose_post(docket_item, api_platform):
+def compose_post(docket_item):
     """return text, media intended for posting to social media
     likey needs to pick different media depending on whether project is LF funded or not (maybe other tags as well) 
     """
     text = ""
-    api_platform.post(text)
+    image_default = ""
+    image_funded = ""
+      
     return
 
 
 if __name__ == "__main__":
     apis = [Twitter(), LinkedIn()]
-    docket = getdocket()
-    for item in docket:
-        for platform in apis:
-            compose_post(item, api)
+    parse_docket(getdocket())
+    for platform in apis:
+        platform.post(text)
+            
     main_twitter()
