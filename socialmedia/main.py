@@ -1,7 +1,3 @@
-import tweepy
-import feedparser
-
-#####
 """
 generic SM posting script with image
 
@@ -22,9 +18,12 @@ intent is to
 3c) consider cross posting to multiple SM accounts -- eg., LinkedIn - https://pypi.org/project/python3-linkedin/
 """
 ####
-  
 
-    
+import tweepy
+import feedparser
+from dotenv import load_dotenv
+load_dotenv()
+
 #probably rewrite this as a class , incorporating auth and posting as attributes/fxns     
 class Twitter():
     def auth():
