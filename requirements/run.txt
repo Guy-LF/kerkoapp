@@ -20,8 +20,8 @@ click==8.0.3
     # via
     #   flask
     #   kerko
-environs==9.3.4
-    # via -r requirements/base.in
+environs==9.5.0
+    # via -r requirements/base.txt
 feedparser==6.0.8
     # via pyzotero
 flask==2.0.2
@@ -47,19 +47,25 @@ jinja2==3.0.2
     #   flask
     #   flask-babel
     #   kerko
-kerko @ git+https://github.com/whiskyechobravo/kerko.git@0c8a37dc04a43062906e0b36d0d3ecfb6052da11
+kerko @ git+https://github.com/whiskyechobravo/kerko.git@f9fa6d4b271f005bfb9ac02416307bceeca38b23
     # via -r requirements/run.in
 markupsafe==2.0.1
     # via
     #   jinja2
     #   wtforms
-marshmallow==3.14.0
-    # via environs
+marshmallow==3.19.0
+    # via
+    #   -r requirements/base.txt
+    #   environs
+packaging==22.0
+    # via
+    #   -r requirements/base.txt
+    #   marshmallow
 pyparsing==3.0.4
     # via bibtexparser
-python-dotenv==0.19.1
+python-dotenv==0.21.0
     # via
-    #   -r requirements/base.in
+    #   -r requirements/base.txt
     #   environs
 pytz==2021.3
     # via
