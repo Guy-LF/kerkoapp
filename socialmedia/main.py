@@ -45,29 +45,33 @@ class Twitter():
         api = tweepy.API(auth)
         return(api)
 
-    def post(open_access=False, funded=False):
+    def post(open_access=False, funded=False, add_image=True, text="This is a test"):
         # Upload image  (this may need to be platform specific)
         
-        media = api.media_upload("lf_legato.jpg")
-        if open_access:
-            media = api.media_upload("lf_legato.jpg")
-        if funded:
-            media = api.media_upload("lf_legato.jpg")
-        if (funded and open_access):
-            media = api.media_upload("lf_legato.jpg")
-        
+        if add_image:
+            media = api.media_upload("lf_legato.png")
+            if open_access:
+                media = api.media_upload("lf_legato_oa.png")
+            if funded:
+                media = api.media_upload("lf_legato_funded.png")
+            if (funded and open_access):
+                media = api.media_upload("lf_legato_funded_oa.png")
+        else:
+            media = None
 
         # Post tweet with image
-        tweet = "this is test tweet"
-        post_result = self.api.update_status(status=tweet, media_ids=[media.media_id])
-        return()
+        if media:
+            post_result = self.api.update_status(status=text, media_ids=[media.media_id])
+        else:
+            post_result = self.api.update_status(status=text)
+        return(True)
     
-class LinkedIn():
-    #same as twitter
-    def auth():
-        return
-    def post():
-        return
+#class LinkedIn():
+#    #same as twitter
+#    def auth():
+#        return
+#    def post():
+#        return
     
     
 def getdocket():
@@ -122,7 +126,10 @@ def compose_post(docket_item):
 
 
 if __name__ == "__main__":
-    apis = [Twitter(), LinkedIn()]
+    apis = [
+        Twitter(), 
+        #LinkedIn(),
+    ]
     parse_docket(getdocket())
     for platform in apis:
         platform.post(text)
