@@ -28,10 +28,10 @@ load_dotenv()
 class Twitter():
     def auth():
         twitter_auth_keys = {
-            "consumer_key"        : "REPLACE_THIS_WITH_YOUR_CONSUMER_KEY",
-            "consumer_secret"     : "REPLACE_THIS_WITH_YOUR_CONSUMER_SECRET",
-            "access_token"        : "REPLACE_THIS_WITH_YOUR_ACCESS_TOKEN",
-            "access_token_secret" : "REPLACE_THIS_WITH_YOUR_ACCESS_TOKEN_SECRET"
+            "consumer_key"        : os.getenv("consumer_key"),
+            "consumer_secret"     : os.getenv("consumer_secret"),
+            "access_token"        : os.getenv("access_token"),
+            "access_token_secret" : os.getenv("access_token_secret")
         }
 
         auth = tweepy.OAuth1UserHandler(
@@ -47,6 +47,7 @@ class Twitter():
 
     def post(open_access=False, funded=False):
         # Upload image  (this may need to be platform specific)
+        
         media = api.media_upload("lf_legato.jpg")
         if open_access:
             media = api.media_upload("lf_legato.jpg")
