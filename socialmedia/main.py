@@ -124,16 +124,16 @@ def compose_post(entry):
 
 #todo, save ids of posted material to the history.txt file
 
-if __name__ == "__main__":
-    apis = []
-    
+
+def main():    
     feeds = getfeeds()
     history = get_history()
     postable_ids = compare_to_history(feeds['feed_ids'],history)
     docket = harvest_item_data(feeds['feed'],postable_ids,feeds['openaccess_ids'],feeds['lf_funded_ids'])    
-    parsed_docket = parsed_docket(docket)
-    
-    #for platform in apis:
-    #    platform.post(text)
-            
+    parsed_docket = parse_docket(docket)
+    return(parsed_docket)
+
+
+if __name__ == "__main__":
+    main()          
   
