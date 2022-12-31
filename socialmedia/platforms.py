@@ -1,6 +1,7 @@
 
 import tweepy
 import os
+from time import sleep
 from dotenv import load_dotenv
 load_dotenv()
   
@@ -40,6 +41,15 @@ class Twitter():
         for x in recent:
             self.api.destroy_favorite(x.id)
         return(True)
+    def kill_favorites_count(self, count):
+        while count > 0:
+            self.kill_favorites()
+            print(count)
+            count -= 20
+            sleep(20)
+        return
+    
+    
     
     def post(self,open_access=False, funded=False, add_image=True, text="This is a test"):
         # Upload image  (this may need to be platform specific)
