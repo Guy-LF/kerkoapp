@@ -49,17 +49,20 @@ class Twitter():
         self.api = tweepy.API(auth)
         return(self.api)
 
+    #necessary only for creating testing accounts
     def kill_recent(self):
         """destroy recent posts"""
         recent = self.api.user_timeline()
         for x in recent:
             self.api.destroy_status(x.id)
         return(True)
+    #necessary only for creating testing accounts
     def kill_favorites(self):
         recent = self.api.get_favorites()
         for x in recent:
             self.api.destroy_favorite(x.id)
         return(True)
+    
     def post(self,open_access=False, funded=False, add_image=True, text="This is a test"):
         # Upload image  (this may need to be platform specific)
         
