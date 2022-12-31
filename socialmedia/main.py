@@ -43,7 +43,7 @@ def getfeeds(url=None, url_funded=None, url_oa=None):
     if ((not url) and (not url_funded) and (not url_oa)):
         url="https://demo.kerko.whiskyechobravo.com/bibliography/atom.xml"
         url_funded="https://demo.kerko.whiskyechobravo.com/bibliography/atom.xml?topic=JTZGXUV6"
-        url_oa="https://demo.kerko.whiskyechobravo.com/bibliography/atom.xml?topic=HRXC7ZKM"
+        url_oa="https://demo.kerko.whiskyechobravo.com/bibliography/?topic=Z8LT6QZG"
     
     #pull main feed and list if ids
     feed = feedparser.parse(url)
