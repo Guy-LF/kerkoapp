@@ -22,7 +22,7 @@ intent is to
 
 import feedparser
 import os
-import sleep
+from time import sleep
 from dotenv import load_dotenv
 load_dotenv()
 
