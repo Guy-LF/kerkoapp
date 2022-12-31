@@ -58,9 +58,9 @@ class Twitter():
             media = self.api.media_upload("lf_legato.png")
             if open_access:
                 media = self.api.media_upload("lf_legato_oa.png")
-            elif funded:
+            if funded:
                 media = self.api.media_upload("lf_legato_funded.png")
-            elif (funded and open_access):
+            if (funded and open_access):
                 media = self.api.media_upload("lf_legato_funded_oa.png")
         else:
             media = None
