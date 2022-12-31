@@ -70,7 +70,7 @@ class Twitter():
             post_result = self.api.update_status(status=text, media_ids=[media.media_id])
         else:
             post_result = self.api.update_status(status=text)
-        return(True)
+        return(post_result.id)
     
 #class LinkedIn():
 #    #same as twitter
