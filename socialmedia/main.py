@@ -26,16 +26,24 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from platforms import Twitter
-    
+
+def parse_test():
+    d = feedparser.parse(r'./atomfeed-sample.xml')
+    return(d)
+
 def getdocket():
     """get ATOM feeds and isolate postable information"""
-    feed = feedparser.parse("http://feedparser.org/docs/examples/atom10.xml")
+    
+    url="http://feedparser.org/docs/examples/atom10.xml"
+    url_funded="http://feedparser.org/docs/examples/atom10.xml"
+    url_oa="http://feedparser.org/docs/examples/atom10.xml"
+    feed = feedparser.parse(url)
     
     ##create list of ID's associated with specific tags
     openaccess = [x for x.guid in \
-        feedparser.parse("http://feedparser.org/docs/examples/atom10.xml")]
+        feedparser.parse(url_oa)]
     lf_funded = [x for x.guid in \
-        feedparser.parse("http://feedparser.org/docs/examples/atom10.xml")]
+        feedparser.parse(url_funded)]
 
     #print('Number of posts in RSS feed :', len(feed.entries))
     docket = []
