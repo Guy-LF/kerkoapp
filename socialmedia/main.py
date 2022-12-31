@@ -22,6 +22,7 @@ intent is to
 
 import feedparser
 import os
+import sleep
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -131,7 +132,11 @@ def main():
     postable_ids = compare_to_history(feeds['feed_ids'],history)
     docket = harvest_item_data(feeds['feed'],postable_ids,feeds['openaccess_ids'],feeds['lf_funded_ids'])    
     parsed_docket = parse_docket(docket)
-    return(parsed_docket)
+    t = Twitter()
+    for x in parsed_docket:
+        t.post(open_access=x['open access'], funded=x['funded'], add_image=True, text=x['post_text'])
+        sleep(5)
+    return()
 
 
 if __name__ == "__main__":
