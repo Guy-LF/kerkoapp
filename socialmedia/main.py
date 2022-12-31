@@ -35,61 +35,90 @@ def parse_test():
     itemlist = [x.guid for x in d['entries']]
     return(d, itemlist)
 
-def getdocket():
-    """get ATOM feeds and isolate postable information"""
+def getfeeds(url=None, url_funded=None, url_oa=None):
+    """retrieve atom main feed, open access item ids, and lf funded item ids. """
     
-    url="http://feedparser.org/docs/examples/atom10.xml"
-    url_funded="http://feedparser.org/docs/examples/atom10.xml"
-    url_oa="http://feedparser.org/docs/examples/atom10.xml"
+    #testing urls 
+    if ((not url) and (not url_funded) and (not url_oa)):
+        url="https://demo.kerko.whiskyechobravo.com/bibliography/atom.xml",
+        url_funded="https://demo.kerko.whiskyechobravo.com/bibliography/atom.xml?topic=JTZGXUV6",
+        url_oa="https://demo.kerko.whiskyechobravo.com/bibliography/atom.xml?topic=HRXC7ZKM"
     
+    #pull main feed and list if ids
     feed = feedparser.parse(url)
+    feed_ids = [x.guid for x in feed['entries']]
     
     ##create list of ID's associated with specific tags
-    openaccess = [x.guid for x in \
+    openaccess_ids = [x.guid for x in \
         feedparser.parse(url_oa)['entries']]
-    lf_funded = [x.guid for x in \
+    lf_funded_ids = [x.guid for x in \
         feedparser.parse(url_funded)['entries']]
+    return({
+        "feed":feed,
+        "feed_ids":feed_ids,
+        "openaccess_ids":openaccess_ids,
+        "lf_funded_ids":lf_funded_ids,
+        })
 
-    #print('Number of posts in RSS feed :', len(feed.entries))
+def get_history():    
+    with open("history.txt") as f:
+    history = f.readlines()
+    # remove new line characters
+    history = [x.strip() for x in history]
+    return(history)
+
+def compare_to_history(feed, history):
+    """return list of item ids from feed that are NOT recorded in the history logfile"""
+    postable_ids = [x for x in feed if (x not in history)]
+    return(postable_ids)
+    
+def harvest_item_data(feed, postable_ids, openaccess_ids, lf_funded_ids):
+    #receive cleaned entries and harvest data needed for posting
+ 
     docket = []
-    for entry in feed.entries:
+    gen = (entry for entry in feed.entries if (entry.guid in postable_ids))
+    
+    for entry in gen:  #limit entries only to those that are 'postable'
+    
+        #todo: might be necessary to examine item creation date and 
+        #decline to post if older than x days
+        
+        #assign open access and funded 'tags'
         oa = False
         funded = False
-
-        date_tuple = entry.created_parsed
-        # !!! need an if/then to compare ATOM publication date to today's date 
-        if entry.guid in openaccess:
+        
+        if entry.guid in openaccess_ids:
             oa = True
-        if entry.guid in lf_funded:
+        if entry.guid in lf_funded_ids:
             funded = True
       
         docket.append({
             "title":entry.title,
-            "description":entry.description,
-            # first author
-            # article publication date (year)
-            "url":entry.url,
+            "abstract":entry.summary, #abstract
+            "author":entry.author_detail.name.split(',')[0],      # last name of first author
+            "year":entry.updated_parsed.tm_year                   # this seems to be article publication date (year)
+            "url":entry.link,
             "open access":oa,
             "funded":funded,
             }
             )
-    return docket
+    return(docket)
 
 #need section to iterate over docket, extract info, and compose post
 def parse_docket(docket):
-    for item in docket:
-        compose_post(item)
-    return
+    parsed_docket = [compose_post(entry) for entry in docket]
+    return(parsed_docket)
 
-def compose_post(docket_item):
+def compose_post(entry):
     """return text, media intended for posting to social media
     likey needs to pick different media depending on whether project is LF funded or not (maybe other tags as well) 
     """
-    text = ""
-    image_default = ""
-    image_funded = ""
-      
-    return
+    temp = f"{entry.author} -!#!- {entry.url} #lipedema #medtwitter"
+    remainder = 280 - len(temp)
+    entry['post_text'] = temp.replace('-!#!-',entry.title[:remainder])
+    entry['add_image'] = True
+    #open_access=False, funded=False, add_image=True, text="This is a test")  
+    return(entry)
 
 
 if __name__ == "__main__":
