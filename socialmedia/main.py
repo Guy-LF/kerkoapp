@@ -133,7 +133,7 @@ def main():
     docket = harvest_item_data(feeds['feed'],postable_ids,feeds['openaccess_ids'],feeds['lf_funded_ids'])    
     parsed_docket = parse_docket(docket)
     t = Twitter()
-    for x in parsed_docket:
+    for x in parsed_docket[:5]:
         t.post(open_access=x['open access'], funded=x['funded'], add_image=True, text=x['post_text'])
         sleep(5)
     return()
