@@ -21,12 +21,16 @@ intent is to
 
 import tweepy
 import feedparser
+import os
 from dotenv import load_dotenv
 load_dotenv()
 
 #probably rewrite this as a class , incorporating auth and posting as attributes/fxns     
 class Twitter():
-    def auth():
+    def __init__(self):
+        self.api = self.auth()
+        return
+    def auth(self):
         twitter_auth_keys = {
             "consumer_key"        : os.getenv("consumer_key"),
             "consumer_secret"     : os.getenv("consumer_secret"),
@@ -42,20 +46,31 @@ class Twitter():
                 twitter_auth_keys['access_token'],
                 twitter_auth_keys['access_token_secret']
                 )
-        api = tweepy.API(auth)
-        return(api)
+        self.api = tweepy.API(auth)
+        return(self.api)
 
-    def post(open_access=False, funded=False, add_image=True, text="This is a test"):
+    def kill_recent(self):
+        """destroy recent posts"""
+        recent = self.api.user_timeline()
+        for x in recent:
+            self.api.destroy_status(x.id)
+        return(True)
+    def kill_favorites(self):
+        recent = self.api.get_favorites()
+        for x in recent:
+            self.api.destroy_favorite(x.id)
+        return(True)
+    def post(self,open_access=False, funded=False, add_image=True, text="This is a test"):
         # Upload image  (this may need to be platform specific)
         
         if add_image:
-            media = api.media_upload("lf_legato.png")
+            media = self.api.media_upload("lf_legato.png")
             if open_access:
-                media = api.media_upload("lf_legato_oa.png")
-            if funded:
-                media = api.media_upload("lf_legato_funded.png")
-            if (funded and open_access):
-                media = api.media_upload("lf_legato_funded_oa.png")
+                media = self.api.media_upload("lf_legato_oa.png")
+            elif funded:
+                media = self.api.media_upload("lf_legato_funded.png")
+            elif (funded and open_access):
+                media = self.api.media_upload("lf_legato_funded_oa.png")
         else:
             media = None
 
@@ -79,18 +94,19 @@ def getdocket():
     feed = feedparser.parse("http://feedparser.org/docs/examples/atom10.xml")
     
     ##create list of ID's associated with specific tags
-    openaccess = [x for x.guid in feedparser.parse("http://feedparser.org/docs/examples/atom10.xml")]
-    lf_funded = [x for x.guid in feedparser.parse("http://feedparser.org/docs/examples/atom10.xml")
-    
+    openaccess = [x for x.guid in \
+        feedparser.parse("http://feedparser.org/docs/examples/atom10.xml")]
+    lf_funded = [x for x.guid in \
+        feedparser.parse("http://feedparser.org/docs/examples/atom10.xml")]
+
     #print('Number of posts in RSS feed :', len(feed.entries))
     docket = []
     for entry in feed.entries:
         oa = False
         funded = False
-        
+
         date_tuple = entry.created_parsed
         # !!! need an if/then to compare ATOM publication date to today's date 
-                 
         if entry.guid in openaccess:
             oa = True
         if entry.guid in lf_funded:
