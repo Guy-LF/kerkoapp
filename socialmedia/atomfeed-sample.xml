@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <title type="html">Kerko Demo - Main feed</title>
+    <link rel="alternate" href="http://localhost:5000/bibliography/" />
+    <link rel="self" href="http://localhost:5000/bibliography/atom.xml" />
+    <link rel="next" href="/bibliography/atom.xml?page=2" />
+    <link rel="last" href="/bibliography/atom.xml?page=4" />
+    <updated>2022-12-14T17:03:33.839530-05:00</updated>
+    <id>http://localhost:5000/bibliography/atom.xml</id>
+    <entry>
+        <title type="html">Information Retrieval: Implementing and Evaluating Search Engines</title>
+        <link href="http://localhost:5000/bibliography/F3P29LMN" />
+        <id>http://localhost:5000/bibliography/F3P29LMN</id>
+        <published>2019-08-03T16:00:53Z</published>
+        <updated>2019-08-03T16:02:21Z</updated>
+        <summary type="html">Information retrieval is the foundation for modern search engines. This textbook offers an introduction to the core topics underlying modern search technologies, including algorithms, data structures, indexing, retrieval, and evaluation. The emphasis is on implementation and experimentation; each chapter includes exercises and suggestions for student projects. Wumpus -- a multiuser open-source information retrieval system developed by one of the authors and available online -- provides model implementations and a basis for student work. The modular structure of the book allows instructors to use it in a variety of graduate-level courses, including courses taught from a database systems perspective, traditional information retrieval courses with a focus on IR theory, and courses covering the basics of Web retrieval. In addition to its classroom use, Information Retrieval will be a valuable reference for professionals in computer science, computer engineering, and software engineering.</summary>
+        <dc:creator>Büttcher, Stefan</dc:creator>
+        <dc:creator>Clarke, Charles L. A.</dc:creator>
+        <dc:creator>Cormack, Gordon V.</dc:creator>
+        <dc:date>2010</dc:date>
+        <dc:identifier>978-0-262-52887-0</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:publisher>MIT Press</dc:publisher>
+        <dc:title>Information Retrieval: Implementing and Evaluating Search Engines</dc:title>
+    </entry>
+    <entry>
+        <title type="html">An ontology-based model for indexing and retrieval</title>
+        <link href="http://localhost:5000/bibliography/LR8MFA74" />
+        <id>http://localhost:5000/bibliography/LR8MFA74</id>
+        <published>2019-07-11T17:54:42Z</published>
+        <updated>2019-07-11T17:54:42Z</updated>
+        <summary type="html">The presented ontology-based model for indexing and retrieval combines the methods and experiences of traditional indexing languages with their cognitively interpreted entities and relationships with the strengths and possibilities of formal knowledge representation. The core component of the model uses inferences along the paths of typed relations between the entities of a knowledge representation for enabling the determination of result sets in the context of retrieval processes. A proposal for a general, but condensed, inventory of typed relations is given. The entities are arranged in aspect-oriented facets to ensure a consistent hierarchical structure. The possible consequences for indexing and retrieval are discussed.</summary>
+        <dc:creator>Gödert, Winfried</dc:creator>
+        <dc:date>2016</dc:date>
+        <dc:identifier>https://doi.org/10.1002/asi.23420</dc:identifier>
+        <dc:identifier>2330-1643</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:rights>© 2015 ASIS&amp;T</dc:rights>
+        <dc:title>An ontology-based model for indexing and retrieval</dc:title>
+    </entry>
+    <entry>
+        <title type="html">The Search Value Added by Professional Indexing to a Bibliographic Database</title>
+        <link href="http://localhost:5000/bibliography/69HA846M" />
+        <id>http://localhost:5000/bibliography/69HA846M</id>
+        <published>2019-07-11T17:52:04Z</published>
+        <updated>2019-07-11T17:52:04Z</updated>
+        <summary type="html">Gross et al. (2015) have demonstrated that about a quarter of hits would typically be lost to keyword searchers if contemporary academic library catalogs dropped their controlled subject headings. This article re- ports on an investigation of the search value that subject descriptors and identifiers assigned by professional indexers add to a bibliographic database, namely the Australian Education Index (AEI). First, a similar methodology to that developed by Gross et al. (2015) was applied, with keyword searches representing a range of educational topics run on the AEI database with and without its subject indexing. The results indicated that AEI users would also lose, on average, about a quarter of hits per query. Second, an alternative research design was applied in which an experienced literature searcher was asked to find resources on a set of educational topics on an AEI database stripped of its subject indexing and then asked to search for additional resources on the same topics after the subject indexing had been reinserted. In this study, the proportion of additional resources that would have been lost had it not been for the subject indexing was again found to be about a quarter of the total resources found for each topic, on average.</summary>
+        <dc:creator>Hider, Philip</dc:creator>
+        <dc:date>2018</dc:date>
+        <dc:identifier>0943-7444</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:title>The Search Value Added by Professional Indexing to a Bibliographic Database</dc:title>
+    </entry>
+    <entry>
+        <title type="html">Introduction. La classification à facettes revisitée. De la théorie à la pratique</title>
+        <link href="http://localhost:5000/bibliography/QU8HKHB7" />
+        <id>http://localhost:5000/bibliography/QU8HKHB7</id>
+        <published>2019-07-11T17:48:15Z</published>
+        <updated>2019-07-11T17:48:15Z</updated>
+        <dc:creator>Hudon, Michèle</dc:creator>
+        <dc:creator>Mustafa El Hadi, Widad</dc:creator>
+        <dc:date>2017-04-13</dc:date>
+        <dc:identifier>1622-1494</dc:identifier>
+        <dc:language>fr</dc:language>
+        <dc:title>Introduction. La classification à facettes revisitée. De la théorie à la pratique</dc:title>
+    </entry>
+    <entry>
+        <title type="html">A systematic review of interactive information retrieval evaluation studies, 1967–2006</title>
+        <link href="http://localhost:5000/bibliography/BWDPHEW4" />
+        <id>http://localhost:5000/bibliography/BWDPHEW4</id>
+        <published>2019-07-11T17:14:56Z</published>
+        <updated>2019-07-11T18:17:37Z</updated>
+        <summary type="html">With the increasing number and diversity of search tools available, interest in the evaluation of search systems, particularly from a user perspective, has grown among researchers. More researchers are designing and evaluating interactive information retrieval (IIR) systems and beginning to innovate in evaluation methods. Maturation of a research specialty relies on the ability to replicate research, provide standards for measurement and analysis, and understand past endeavors. This article presents a historical overview of 40 years of IIR evaluation studies using the method of systematic review. A total of 2,791 journal and conference units were manually examined and 127 articles were selected for analysis in this study, based on predefined inclusion and exclusion criteria. These articles were systematically coded using features such as author, publication date, sources and references, and properties of the research method used in the articles, such as number of subjects, tasks, corpora, and measures. Results include data describing the growth of IIR studies over time, the most frequently occurring and cited authors and sources, and the most common types of corpora and measures used. An additional product of this research is a bibliography of IIR evaluation research that can be used by students, teachers, and those new to the area. To the authors&#39; knowledge, this is the first historical, systematic characterization of the IIR evaluation literature, including the documentation of methods and measures used by researchers in this specialty.</summary>
+        <dc:creator>Kelly, Diane</dc:creator>
+        <dc:creator>Sugimoto, Cassidy R.</dc:creator>
+        <dc:date>April 1, 2013</dc:date>
+        <dc:identifier>https://doi.org/10.1002/asi.22799</dc:identifier>
+        <dc:identifier>1532-2890</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:title>A systematic review of interactive information retrieval evaluation studies, 1967–2006</dc:title>
+    </entry>
+    <entry>
+        <title type="html">A simplified model for facet analysis: Ranganathan 101</title>
+        <link href="http://localhost:5000/bibliography/LYKH93Z6" />
+        <id>http://localhost:5000/bibliography/LYKH93Z6</id>
+        <published>2019-07-11T16:43:09Z</published>
+        <updated>2019-07-11T17:45:24Z</updated>
+        <dc:creator>Spiteri, Louise</dc:creator>
+        <dc:date>1998</dc:date>
+        <dc:identifier>1195-096X</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:title>A simplified model for facet analysis: Ranganathan 101</dc:title>
+    </entry>
+    <entry>
+        <title type="html">Faceted Classification for the Web</title>
+        <link href="http://localhost:5000/bibliography/YS2D5X79" />
+        <id>http://localhost:5000/bibliography/YS2D5X79</id>
+        <published>2019-07-11T15:55:44Z</published>
+        <updated>2019-07-11T17:45:41Z</updated>
+        <summary type="html">The article describes the nature of a faceted classification, and its application in document retrieval. The kinds of facet used are illustrated. Procedures are then discussed for identifying facets in a subject field, populating the facets with individual subject terms, arranging these in helpful sequences, using the scheme to classify documents, and searching the resultant classified index, with particular reference to Internet search.</summary>
+        <dc:creator>Vickery, Brian</dc:creator>
+        <dc:date>2008</dc:date>
+        <dc:identifier>https://doi.org/10.1007/s10516-007-9025-9</dc:identifier>
+        <dc:identifier>1572-8390</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:title>Faceted Classification for the Web</dc:title>
+    </entry>
+    <entry>
+        <title type="html">Performance and usability testing of multidimensional taxonomy in web site search and navigation</title>
+        <link href="http://localhost:5000/bibliography/F3DQKNRA" />
+        <id>http://localhost:5000/bibliography/F3DQKNRA</id>
+        <published>2019-07-11T15:52:45Z</published>
+        <updated>2019-07-11T17:44:20Z</updated>
+        <summary type="html">Purpose
+– Development of an effective search system and interface largely depends on usability studies. The aim of this paper is to present the results of an empirical evaluation of a prototype web site search and browsing tool based on multidimensional taxonomies derived from the use of faceted classification.
+
+Design/methodology/approach
+– A prototype Faceted Classification System (FCS), which classifies and organizes web documents under different facets (orthogonal sets of categories), was implemented on the domain of an academic institute. Facet are created from content oriented metadata, and then assembled into multiple taxonomies that describe alternative classifications of the web site content, such as by subject and location. The search and browsing interfaces use these taxonomies to enable users to access information in multiple ways. The paper compares the FCS interfaces to the existing single‐classification system to evaluate the usability of the facets in typical navigation and searching tasks.
+
+Findings
+– The findings suggest that performance and usability are significantly better with the FCS in the areas of efficient access, search success, flexibility, understanding of content, relevant search result, and satisfaction. These results are especially promising since unfamiliarity often leads users to reject new search interfaces.
+
+Originality/value
+– The results of the study in this paper can significantly contribute to interface research in the IR community, emphasizing the advantages of multidimensional taxonomies in online information collections.</summary>
+        <dc:creator>Nasir Uddin, Mohammad</dc:creator>
+        <dc:creator>Janecek, Paul</dc:creator>
+        <dc:date>March 27, 2007</dc:date>
+        <dc:identifier>https://doi.org/10.1108/14678040710748058</dc:identifier>
+        <dc:identifier>1467-8047</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:title>Performance and usability testing of multidimensional taxonomy in web site search and navigation</dc:title>
+    </entry>
+    <entry>
+        <title type="html">How to Make a Faceted Classification and Put It On the Web</title>
+        <link href="http://localhost:5000/bibliography/TWDYFYPQ" />
+        <id>http://localhost:5000/bibliography/TWDYFYPQ</id>
+        <published>2019-07-11T15:49:23Z</published>
+        <updated>2019-07-11T17:42:17Z</updated>
+        <dc:creator>Denton, William</dc:creator>
+        <dc:date>2003</dc:date>
+        <dc:language>en</dc:language>
+        <dc:title>How to Make a Faceted Classification and Put It On the Web</dc:title>
+    </entry>
+    <entry>
+        <title type="html">The need for a faceted classification as the basis of all methods of information retrieval</title>
+        <link href="http://localhost:5000/bibliography/QMZYIB8K" />
+        <id>http://localhost:5000/bibliography/QMZYIB8K</id>
+        <published>2019-07-11T15:48:45Z</published>
+        <updated>2019-07-11T18:16:41Z</updated>
+        <summary type="html">Purpose
+– The aim of this article is to estimate the impact of faceted classification and the faceted analytical method on the development of various information retrieval tools over the latter part of the twentieth and early twenty‐first centuries.
+
+Design/methodology/approach
+– The article presents an examination of various subject access tools intended for retrieval of both print and digital materials to determine whether they exhibit features of faceted systems. Some attention is paid to use of the faceted approach as a means of structuring information on commercial web sites. The secondary and research literature is also surveyed for commentary on and evaluation of facet analysis as a basis for the building of vocabulary and conceptual tools.
+
+Findings
+– The study finds that faceted systems are now very common, with a major increase in their use over the last 15 years. Most LIS subject indexing tools (classifications, subject heading lists and thesauri) now demonstrate features of facet analysis to a greater or lesser degree. A faceted approach is frequently taken to the presentation of product information on commercial web sites, and there is an independent strand of theory and documentation related to this application. There is some significant research on semi‐automatic indexing and retrieval (query expansion and query formulation) using facet analytical techniques.
+
+Originality/value
+– This article provides an overview of an important conceptual approach to information retrieval, and compares different understandings and applications of this methodology.</summary>
+        <dc:creator>Broughton, Vanda</dc:creator>
+        <dc:creator>Dawson, Andy</dc:creator>
+        <dc:date>January 2006</dc:date>
+        <dc:identifier>https://doi.org/10.1108/00012530610648671</dc:identifier>
+        <dc:identifier>0001-253X</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:title>The need for a faceted classification as the basis of all methods of information retrieval</dc:title>
+    </entry>
+    <entry>
+        <title type="html">Faceted classification as a general theory for knowledge organization</title>
+        <link href="http://localhost:5000/bibliography/GWSBS6VY" />
+        <id>http://localhost:5000/bibliography/GWSBS6VY</id>
+        <published>2019-07-11T15:48:39Z</published>
+        <updated>2019-07-11T17:41:43Z</updated>
+        <summary type="html">The Classification Research Group manifesto of 1955, &#39;Faceted classification as the basis of all information retrieval&#39;, has been at least in part achieved, and there is much evidence of faceted classification influencing a whole range of modern information retrieval tools. This paper examines the theory underlying faceted classification, how and why it has been taken up so widely, and what benefits it brings to the activity of knowledge organization. The role of facet analysis as a general research tool is also considered, and how it compares with other content analysis tools as a means of modelling subject domains.</summary>
+        <dc:creator>Broughton, Vanda</dc:creator>
+        <dc:date>2013</dc:date>
+        <dc:language>en</dc:language>
+        <dc:title>Faceted classification as a general theory for knowledge organization</dc:title>
+    </entry>
+    <entry>
+        <title type="html">Building a faceted classification for the humanities: principles and procedures</title>
+        <link href="http://localhost:5000/bibliography/T82YTMQS" />
+        <id>http://localhost:5000/bibliography/T82YTMQS</id>
+        <published>2019-07-11T15:48:27Z</published>
+        <updated>2019-07-11T17:41:50Z</updated>
+        <summary type="html">Purpose – This paper aims to provide an overview of principles and procedures involved in creating a faceted classification scheme for use in resource discovery in an online environment. Design/methodology/approach – Facet analysis provides an established rigorous methodology for the conceptual organization of a subject field, and the structuring of an associated classification or controlled vocabulary. This paper explains how that methodology was applied to the humanities in the FATKS project, where the objective was to explore the potential of facet analytical theory for creating a controlled vocabulary for the humanities, and to establish the requirements of a faceted classification appropriate to an online environment. A detailed faceted vocabulary was developed for two areas of the humanities within a broader facet framework for the whole of knowledge. Research issues included how to create a data model which made the faceted structure explicit and machine-readable and provided for its further development and use. Findings – In order to support easy facet combination in indexing, and facet searching and browsing on the interface, faceted classification requires a formalized data structure and an appropriate tool for its management. The conceptual framework of a faceted system proper can be applied satisfactorily to humanities, and fully integrated within a vocabulary management system. Research limitations/implications – The procedures described in this paper are concerned only with the structuring of the classification, and do not extend to indexing, retrieval and application issues.
+
+Practical implications – Many stakeholders in the domain of resource discovery consider developing their own classification system and supporting tools. The methods described in this paper may clarify the process of building a faceted classification and may provide some useful ideas with respect to the vocabulary maintenance tool. Originality/value – As far as the authors are aware there is no comparable research in this area.</summary>
+        <dc:creator>Broughton, Vanda</dc:creator>
+        <dc:creator>Slavic, Aida</dc:creator>
+        <dc:date>2007</dc:date>
+        <dc:language>en</dc:language>
+        <dc:title>Building a faceted classification for the humanities: principles and procedures</dc:title>
+    </entry>
+    <entry>
+        <title type="html">Facet analysis</title>
+        <link href="http://localhost:5000/bibliography/VYH2GWM6" />
+        <id>http://localhost:5000/bibliography/VYH2GWM6</id>
+        <published>2019-07-11T15:45:39Z</published>
+        <updated>2019-07-11T18:18:01Z</updated>
+        <dc:creator>La Barre, Kathryn</dc:creator>
+        <dc:date>January 1, 2010</dc:date>
+        <dc:identifier>1550-8382</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:title>Facet analysis</dc:title>
+    </entry>
+    <entry>
+        <title type="html">Ranganathan in the Perspective of Advanced Information Retrieval</title>
+        <link href="http://localhost:5000/bibliography/C4K9XKVY" />
+        <id>http://localhost:5000/bibliography/C4K9XKVY</id>
+        <published>2019-07-11T15:44:36Z</published>
+        <updated>2019-07-11T17:43:08Z</updated>
+        <dc:creator>Ingwersen, Peter</dc:creator>
+        <dc:creator>Wormell, Irene</dc:creator>
+        <dc:date>1992</dc:date>
+        <dc:identifier>0024-2667</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:title>Ranganathan in the Perspective of Advanced Information Retrieval</dc:title>
+    </entry>
+    <entry>
+        <title type="html">Facet analysis: The logical approach to knowledge organization</title>
+        <link href="http://localhost:5000/bibliography/RJVBT7KD" />
+        <id>http://localhost:5000/bibliography/RJVBT7KD</id>
+        <published>2019-07-11T15:44:17Z</published>
+        <updated>2019-07-11T18:17:16Z</updated>
+        <summary type="html">The facet-analytic paradigm is probably the most distinct approach to knowledge organization within Library and Information Science, and in many ways it has dominated what has be termed “modern classification theory”. It was mainly developed by S.R. Ranganathan and the British Classification Research Group, but it is mostly based on principles of logical division developed more than two millennia ago. Colon Classification (CC) and Bliss 2 (BC2) are among the most important systems developed on this theoretical basis, but it has also influenced the development of other systems, such as the Dewey Decimal Classification (DDC) and is also applied in many websites. It still has a strong position in the field and it is the most explicit and “pure” theoretical approach to knowledge organization (KO) (but it is not by implication necessarily also the most important one). The strength of this approach is its logical principles and the way it provides structures in knowledge organization systems (KOS). The main weaknesses are (1) its lack of empirical basis and (2) its speculative ordering of knowledge without basis in the development or influence of theories and socio-historical studies. It seems to be based on the problematic assumption that relations between concepts are a priori and not established by the development of models, theories and laws.</summary>
+        <dc:creator>Hjørland, Birger</dc:creator>
+        <dc:date>March 2013</dc:date>
+        <dc:identifier>https://doi.org/10.1016/j.ipm.2012.10.001</dc:identifier>
+        <dc:identifier>0306-4573</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:title>Facet analysis: The logical approach to knowledge organization</dc:title>
+    </entry>
+    <entry>
+        <title type="html">Des classifications aux thésaurus : du bon usage des facettes</title>
+        <link href="http://localhost:5000/bibliography/3DPTMGPJ" />
+        <id>http://localhost:5000/bibliography/3DPTMGPJ</id>
+        <published>2019-07-11T15:42:36Z</published>
+        <updated>2019-09-28T21:25:56Z</updated>
+        <summary type="html">L&#39;usage du terme facette est bien intégré au vocabulaire de la science de l&#39;information, mais les acceptions du mot sont si variables selon les auteurs que la perception de son contenu en devient problématique. L&#39;A. montre ici que ces difficultés remontent au fondateur de la théorie des facettes, Ranganathan, qui a malencontreusement choisi un terme métaphorique du vocabulaire courant déjà chargé de sens, et dont la théorie des facettes est toujours restée ambiguë. L&#39;auteur de cette étude en montre les inconsistances à partir du modèle linguistique des deux axes du langage, puis repère les grandes étapes de l&#39;évolution qui a conduit les partisans des facettes du schéma analytico-synthétique de Ranganathan au schéma analytique du thésaurus à facettes. II plaide enfin pour un usage plus rigoureux du terme et de l&#39;outil, qui fasse clairement le partage entre la classification des concepts et le classement des sujets.</summary>
+        <dc:creator>Maniez, Jacques</dc:creator>
+        <dc:date>1999</dc:date>
+        <dc:identifier>0012-4508</dc:identifier>
+        <dc:language>fr</dc:language>
+        <dc:title>Des classifications aux thésaurus : du bon usage des facettes</dc:title>
+    </entry>
+    <entry>
+        <title type="html">Models in information behaviour research</title>
+        <link href="http://localhost:5000/bibliography/IXERGI7L" />
+        <id>http://localhost:5000/bibliography/IXERGI7L</id>
+        <published>2019-07-11T15:41:15Z</published>
+        <updated>2019-07-11T17:46:21Z</updated>
+        <summary type="html">This paper presents an outline of models of information seeking and other aspects of information behaviour, showing the relationship between communication and information behaviour in general with information seeking and information searching in information retrieval systems. It is suggested that these models address issues at various levels of information behaviour and that they can be related by envisaging a ‘nesting’ of models. It is also suggested that, within both information seeking research and information searching research, alternative models address similar issues in related ways and that the models are complementary rather than conflicting. Finally, an alternative, problem-solving model is presented, which, it is suggested, provides a basis for relating the models in appropriate research strategies.</summary>
+        <dc:creator>Wilson, T. D.</dc:creator>
+        <dc:date>1999</dc:date>
+        <dc:identifier>https://doi.org/10.1108/EUM0000000007145</dc:identifier>
+        <dc:identifier>0022-0418</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:title>Models in information behaviour research</dc:title>
+    </entry>
+    <entry>
+        <title type="html">Information foraging</title>
+        <link href="http://localhost:5000/bibliography/FSB6DCE8" />
+        <id>http://localhost:5000/bibliography/FSB6DCE8</id>
+        <published>2019-07-11T15:39:44Z</published>
+        <updated>2019-07-11T17:44:25Z</updated>
+        <summary type="html">Information foraging theory is an approach to understanding how strategies and technologies for information seeking, gathering, and consumption are adapted to the flux of information in the environment. The theory assumes that people, when possible, will modify their strategies or the structure of the environment to maximize their rate of gaining valuable information. The theory is developed by (a) adaptation (rational) analysis of information foraging problems and (b) a detailed process model (adaptive control of thought in information foraging [ACT-IF]). The adaptation analysis develops (a) information patch models, which deal with time allocation and information filtering and enrichment activities in environments in which information is encountered in clusters; (b) information scent models, which address the identification of information value from proximal cues; and (c) information diet models, which address decisions about the selection and pursuit of information items. ACT-IF is instantiated as a production system model of people interacting with complex information technology.</summary>
+        <dc:creator>Pirolli, Peter</dc:creator>
+        <dc:creator>Card, Stuart</dc:creator>
+        <dc:date>1999</dc:date>
+        <dc:identifier>https://doi.org/10.1037/0033-295X.106.4.643</dc:identifier>
+        <dc:identifier>1939-1471 0033-295X</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:rights>(c) 2016 APA, all rights reserved</dc:rights>
+        <dc:title>Information foraging</dc:title>
+    </entry>
+    <entry>
+        <title type="html">Influence of training and stage of search on gaze behavior in a library catalog faceted search interface</title>
+        <link href="http://localhost:5000/bibliography/SW2Y483U" />
+        <id>http://localhost:5000/bibliography/SW2Y483U</id>
+        <published>2019-07-11T15:39:33Z</published>
+        <updated>2019-07-11T15:39:33Z</updated>
+        <summary type="html">This study examined how searchers interact with a web-based, faceted library catalog when conducting exploratory searches. It applied multiple methods, including eye tracking and stimulated recall interviews, to investigate important aspects of faceted search interface use, specifically: (a) searcher gaze behavior—what components of the interface searchers look at; (b) how gaze behavior differs when training is and is not provided; (c) how gaze behavior changes as searchers become familiar with the interface; and (d) how gaze behavior differs depending on the stage of the search process. The results confirm previous findings that facets account for approximately 10–30% of interface use. They show that providing a 60-second video demonstration increased searcher use of facets. However, searcher use of the facets did not evolve during the study session, which suggests that searchers may not, on their own, rapidly apply the faceted interfaces. The findings also suggest that searcher use of interface elements varied by the stage of their search during the session, with higher use of facets during decision-making stages. These findings will be of interest to librarians and interface designers who wish to maximize the value of faceted searching for patrons, as well as to researchers who study search behavior.</summary>
+        <dc:creator>Kules, Bill</dc:creator>
+        <dc:creator>Capra, Robert</dc:creator>
+        <dc:date>2012-01-01</dc:date>
+        <dc:identifier>https://doi.org/10.1002/asi.21647</dc:identifier>
+        <dc:identifier>1532-2890</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:rights>© 2011 ASIS&amp;T</dc:rights>
+        <dc:title>Influence of training and stage of search on gaze behavior in a library catalog faceted search interface</dc:title>
+    </entry>
+    <entry>
+        <title type="html">A principle of uncertainty for information seeking</title>
+        <link href="http://localhost:5000/bibliography/4GHLWNUV" />
+        <id>http://localhost:5000/bibliography/4GHLWNUV</id>
+        <published>2019-07-11T15:39:21Z</published>
+        <updated>2019-07-11T18:17:49Z</updated>
+        <dc:creator>Kuhlthau, Carol C.</dc:creator>
+        <dc:date>April 1, 1993</dc:date>
+        <dc:identifier>https://doi.org/10.1108/eb026918</dc:identifier>
+        <dc:identifier>0022-0418</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:title>A principle of uncertainty for information seeking</dc:title>
+    </entry>
+</feed>
