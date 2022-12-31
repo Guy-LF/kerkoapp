@@ -96,7 +96,7 @@ def harvest_item_data(feed, postable_ids, openaccess_ids, lf_funded_ids):
             "title":entry.title,
             #"abstract":entry.summary, #abstract
             "author":entry.author_detail.name.split(',')[0],      # last name of first author
-            "year":entry.updated_parsed.tm_year,                   # this seems to be article publication date (year)
+            #"year":entry.updated_parsed.tm_year,                   # this seems to be article publication date (year)
             "url":entry.link,
             "open access":oa,
             "funded":funded,
