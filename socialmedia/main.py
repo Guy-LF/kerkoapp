@@ -67,9 +67,9 @@ def get_history():
         history = [x.strip() for x in history]
     return(history)
 
-def compare_to_history(feed, history):
+def compare_to_history(feed_ids, history):
     """return list of item ids from feed that are NOT recorded in the history logfile"""
-    postable_ids = [x for x in feed if (x not in history)]
+    postable_ids = [x for x in feed_ids if (x not in history)]
     return(postable_ids)
     
 def harvest_item_data(feed, postable_ids, openaccess_ids, lf_funded_ids):
@@ -94,7 +94,7 @@ def harvest_item_data(feed, postable_ids, openaccess_ids, lf_funded_ids):
       
         docket.append({
             "title":entry.title,
-            "abstract":entry.summary, #abstract
+            #"abstract":entry.summary, #abstract
             "author":entry.author_detail.name.split(',')[0],      # last name of first author
             "year":entry.updated_parsed.tm_year,                   # this seems to be article publication date (year)
             "url":entry.link,
@@ -121,13 +121,19 @@ def compose_post(entry):
     return(entry)
 
 
+
+#todo, save ids of posted material to the history.txt file
+
 if __name__ == "__main__":
-    apis = [
-        Twitter(), 
-        #LinkedIn(),
-    ]
-    parse_docket(getdocket())
-    for platform in apis:
-        platform.post(text)
+    apis = []
+    
+    feeds = getfeeds()
+    history = get_history()
+    postable_ids = compare_to_history(feeds['feed_ids'],history)
+    docket = harvest_item_data(feeds['feed'],postable_ids,feeds['openaccess_ids'],feeds['lf_funded_ids'])    
+    parsed_docket = parsed_docket(docket)
+    
+    #for platform in apis:
+    #    platform.post(text)
             
-    main_twitter()
+  
