@@ -113,9 +113,9 @@ def compose_post(entry):
     """return text, media intended for posting to social media
     likey needs to pick different media depending on whether project is LF funded or not (maybe other tags as well) 
     """
-    temp = f"{entry.author} -!#!- {entry.url} #lipedema #medtwitter"
+    temp = f"{entry['author']} -!#!- {entry['url']} #lipedema #medtwitter"
     remainder = 280 - len(temp)
-    entry['post_text'] = temp.replace('-!#!-',entry.title[:remainder])
+    entry['post_text'] = temp.replace('-!#!-',entry['title'][:remainder])
     entry['add_image'] = True
     #open_access=False, funded=False, add_image=True, text="This is a test")  
     return(entry)
