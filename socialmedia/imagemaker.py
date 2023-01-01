@@ -1,7 +1,7 @@
 
 from PIL import Image, ImageDraw, ImageFont
 import platforms
-import re
+import textwrap
 
 def test_post():
     a = platforms.Twitter()
@@ -17,7 +17,8 @@ def getSize(txt, font):
 def format_text(text=None):
     if not text:
         text = "0123456789"*100 # test string
-    return(re.sub("(.{100})", "\\1\n", text, 0, re.DOTALL))
+    wrapper = textwrap.TextWrapper(width=100)
+    return(textwrap.dedent(text))
 
 def main(title="Not available", abstract=None, author="Not available", year="Not available"):
 
