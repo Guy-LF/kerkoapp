@@ -17,8 +17,7 @@ def main():
 
     fontname = "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf" #or -Bold.ttf  
     fontsize = 11   
-    text = """
-    Gross et al. (2015) have demonstrated that about a quarter\n of hits would typically be lost to keyword searchers\n"""
+    text = "Gross et al. (2015) have demonstrated that about a quarter\nof hits would typically be lost to keyword searchers\n.\n"
     
     colorText = "black"
     colorOutline = "red"
