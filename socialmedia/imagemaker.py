@@ -10,14 +10,14 @@ def test_post():
     return
 
 def getSize(txt, font):
-    testImg = Image.new('RGB', (1, 1))
+    testImg = Image.new('RGB', (0, 1))
     testDraw = ImageDraw.Draw(testImg)
     return testDraw.textsize(txt, font)
 
 def format_text(text=None):
     if not text:
         text = "0123456789"*100 # test string
-    return(re.sub("(.{64})", "\\1\n", text, 0, re.DOTALL))
+    return(re.sub("(.{80})", "\\1\n", text, 0, re.DOTALL))
 
 def main(title="", text=None, author="", year=""):
 
