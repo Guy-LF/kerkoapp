@@ -150,7 +150,7 @@ def compose_post(entry):
 def log_ids(item_guid):
     """todo, save ids of posted material to the history.txt file"""
     print(item_guid)
-    with open('history.txt', 'w', encoding='utf-8') as f:
+    with open('history.txt', 'a', encoding='utf-8') as f:   #append data
         f.write(f'{item_guid}\n')
     return
 
