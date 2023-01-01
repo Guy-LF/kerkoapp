@@ -143,13 +143,12 @@ def compose_post(entry):
     remainder = 280 - len(temp)
     entry['post_text'] = temp.replace('-!#!-',entry['title'][:remainder])
     entry['add_image'] = True
-    log_ids(entry['guid'])
     return(entry)
 
 
 def log_ids(item_guid):
     """todo, save ids of posted material to the history.txt file"""
-    print(item_guid)
+    print(f"---logging: {item_guid}")
     with open('history.txt', 'a', encoding='utf-8') as f:   #append data
         f.write(f'{item_guid}\n')
     return
@@ -163,8 +162,10 @@ def main():
     parsed_docket = parse_docket(docket)
     t = Twitter()
     for x in parsed_docket[:5]:
+        print(f"posting {x['guid']}")
         t.post(open_access=x['open access'], funded=x['funded'], add_image=True, text=x['post_text'])
-        sleep(5)
+        log_ids(x['guid'])
+        sleep(20)
     return()
 
 
