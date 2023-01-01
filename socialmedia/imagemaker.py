@@ -19,22 +19,22 @@ def format_text(text=None):
         text = "0123456789"*100 # test string
     return(re.sub("(.{100})", "\\1\n", text, 0, re.DOTALL))
 
-def main(title="Not available", text=None, author="Not available", year="Not available"):
+def main(title="Not available", abstract=None, author="Not available", year="Not available"):
 
     fontname = "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf" #or -Bold.ttf  
     fontsize = 11 
     
-    if not text:
-        text = format_text(("Gross et al. (2015) have demonstrated that about a quarter of hits would typically be lost to keyword searchers" * 50))
+    if not abstract:
+        abstract = format_text(("Gross et al. (2015) have demonstrated that about a quarter of hits would typically be lost to keyword searchers" * 50))
     
-    fulltext = f"First author: {author} year: {year}\n title: {title}\n {text}"
+    fulltext = format_text(text=f"First author: {author} year: {year}\n title: {title}\n {abstract}")
     colorText = "black"
     colorOutline = "red"
     colorBackground = "white"
 
 
     font = ImageFont.truetype(fontname, fontsize)
-    width, height = getSize(text, font)
+    width, height = getSize(fulltext, font)
     img = Image.new('RGB', (width+4, height+4), colorBackground)
     d = ImageDraw.Draw(img)
     #d.text((2, height/2), fulltext, fill=colorText, font=font)
