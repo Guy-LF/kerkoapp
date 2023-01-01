@@ -70,6 +70,8 @@ def get_history():
 def compare_to_history(feed_ids, history):
     """return list of item ids from feed that are NOT recorded in the history logfile"""
     postable_ids = [x for x in feed_ids if (x not in history)]
+    print(f"found {len(postable_ids)} postable items of {len(history)} candidate items")
+    
     return(postable_ids)
     
 def harvest_item_data(feed, postable_ids, openaccess_ids, lf_funded_ids):
