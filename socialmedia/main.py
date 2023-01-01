@@ -3,18 +3,17 @@ generic SM posting script with image
 
 intent is to 
 1) monitor legato\kerko main ATOM feed for new posts
-1a) monitor legato search feeds for LF Funded and Open Access items
+1a) monitor legato search feeds for LF Funded and Open Access items, flagging new posts appropriately
 
 2) compose a standard form text from the ATOM syndication data
-    eg  "[first author] - [truncated title ...]  [legato permalink] #lipedema #medtwitter"
-2a) include media image -  eg., "NewLipedemaResearch.jpg"
-2b) bonus points -- edit media image dynamically to include entire citation and/or abstract
-2c) bonus points -- modify or select image dependent on tags (eg, LF Funded, Imaging, Genetics, open access, etc)
+    eg  "[first author] - [truncated title ...]  [legato permalink] #lipedema"
+    
+    
+2a) include a specific media image dependent on tags (eg, LF Funded, Open Access)
 
 3) Post to SM
 3a) if multiple new items, space posts out over time.  Do not tweet all at once.
-3b)  bonus points -- trigger some notification to communications staff to acknowledge that a tweet was made. possibly twitter DM to self. 
-
+3b)  bonus points -- trigger some notification to communications staff to acknowledge that a tweet was made. possibly DM to self. 
 3c) consider cross posting to multiple SM accounts -- eg., LinkedIn - https://pypi.org/project/python3-linkedin/
 """
 ####
@@ -92,15 +91,41 @@ def harvest_item_data(feed, postable_ids, openaccess_ids, lf_funded_ids):
             oa = True
         if entry.guid in lf_funded_ids:
             funded = True
-      
+        
+        try:
+            title = entry.title
+        except:
+            title = ''
+        try:
+            abstract = entry.summary #abstract
+        except:
+            abstract = ''
+        try:
+            author = entry.author_detail.name.split(',')[0]      # last name of first author
+        except:
+            author = ''
+        try:
+            year = entry.updated_parsed.tm_year                   # this seems to be article publication date (year)
+        except:
+            year = ''
+        try:
+            url = entry.link
+        except:
+            url = 'https://library.lipedema.org'
+        try:
+            guid = entry.guid
+        except:
+            guid = None
+    
         docket.append({
-            "title":entry.title,
-            #"abstract":entry.summary, #abstract
-            "author":entry.author_detail.name.split(',')[0],      # last name of first author
-            #"year":entry.updated_parsed.tm_year,                   # this seems to be article publication date (year)
-            "url":entry.link,
+            "title":title,
+            "abstract":abstract,
+            "author":author,      # last name of first author
+            "year":year,                   # this seems to be article publication date (year)
+            "url":url,
             "open access":oa,
             "funded":funded,
+            "guid":guid,
             }
             )
     return(docket)
@@ -118,12 +143,16 @@ def compose_post(entry):
     remainder = 280 - len(temp)
     entry['post_text'] = temp.replace('-!#!-',entry['title'][:remainder])
     entry['add_image'] = True
-    #open_access=False, funded=False, add_image=True, text="This is a test")  
+    log_ids(entry['guid']
     return(entry)
 
 
-
-#todo, save ids of posted material to the history.txt file
+def log_ids(item_guid)
+    """todo, save ids of posted material to the history.txt file"""
+    print(item_guid)
+    with open('history.txt', 'w', encoding='utf-8') as f:
+        f.write(f'{item_guid}\n')
+    return
 
 
 def main():    
