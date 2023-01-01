@@ -49,7 +49,10 @@ class Twitter():
             sleep(20)
         return
     
-    
+    def notify(self):
+      """ideally this will send a DM to the social media account to alert them that new info was recently posted"""
+      #not implemented
+      return
     
     def post(self,open_access=False, funded=False, add_image=True, text="This is a test"):
         # Upload image  (this may need to be platform specific)
@@ -70,6 +73,7 @@ class Twitter():
             post_result = self.api.update_status(status=text, media_ids=[media.media_id])
         else:
             post_result = self.api.update_status(status=text)
+            
         return(post_result.id)
     
 #class LinkedIn():
