@@ -42,4 +42,4 @@ def main(title="Not available", text=None, author="Not available", year="Not ava
     d.rectangle((0, 0, width+3, height+3), outline=colorOutline)
     #size = 500,500
     #img.thumbnail(size,Image.ANTIALIAS)
-    img.save("test.png")
+    img.save("abstract.png")
