@@ -67,10 +67,10 @@ class Twitter():
                 media = self.api.media_upload("lf_legato_funded.png")
             if (funded and open_access):
                 media = self.api.media_upload("lf_legato_funded_oa.png")
-           
-           im.main(title="Not available", abstract=text, author="Not available", year="Not available")
-                   
-          media2 = self.api.media_upload("abstract.png")
+            
+            #create image of abstract
+            x = im.main(title="Not available", abstract=text, author="Not available", year="Not available")       
+            media2 = self.api.media_upload("abstract.png")
         else:
             media = None
             media2 = None
