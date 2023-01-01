@@ -18,7 +18,8 @@ def format_text(text=None):
     if not text:
         text = "0123456789"*100 # test string
     wrapper = textwrap.TextWrapper(width=100)
-    return(wrapper.dedent(text))
+    dedented_text = textwrap.dedent(text=text)
+    return(wrapper.fill(text=dedented_text))
 
 def main(title="Not available", abstract=None, author="Not available", year="Not available"):
 
