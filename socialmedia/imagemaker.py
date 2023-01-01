@@ -27,7 +27,7 @@ def main(title="Not available", abstract=None, author="Not available", year="Not
     fontsize = 11 
     
     if not abstract:
-        abstract = format_text(("Gross et al. (2015) have demonstrated that about a quarter of hits would typically be lost to keyword searchers" * 50))
+        abstract = "Not available"
     
     fulltext = format_text(text=f"First author: {author} year: {year}\n title: {title}\n {abstract}")
     colorText = "black"
