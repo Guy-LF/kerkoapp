@@ -39,6 +39,6 @@ def main(title="", text=None, author="", year=""):
     d = ImageDraw.Draw(img)
     d.text((2, height/2), fulltext, fill=colorText, font=font)
     d.rectangle((0, 0, width+3, height+3), outline=colorOutline)
-    size = 500,500
-    img.thumbnail(size,Image.ANTIALIAS)
+    #size = 500,500
+    #img.thumbnail(size,Image.ANTIALIAS)
     img.save("test.png")
