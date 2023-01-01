@@ -3,6 +3,7 @@ import tweepy
 import os
 from time import sleep
 from dotenv import load_dotenv
+import imagemaker as im 
 load_dotenv()
   
 class Twitter():
@@ -54,7 +55,8 @@ class Twitter():
       #not implemented
       return
     
-    def post(self,open_access=False, funded=False, add_image=True, text="This is a test"):
+    def post(self,open_access=False, funded=False, add_image=True, text="This is a test", 
+             title="Not available", author="Not available",abstract="Not availalable",year="Not available"):
         # Upload image  (this may need to be platform specific)
         
         if add_image:
@@ -65,12 +67,17 @@ class Twitter():
                 media = self.api.media_upload("lf_legato_funded.png")
             if (funded and open_access):
                 media = self.api.media_upload("lf_legato_funded_oa.png")
+           
+           im.main(title="Not available", abstract=text, author="Not available", year="Not available")
+                   
+          media2 = self.api.media_upload("abstract.png")
         else:
             media = None
+            media2 = None
 
         # Post tweet with image
         if media:
-            post_result = self.api.update_status(status=text, media_ids=[media.media_id])
+            post_result = self.api.update_status(status=text, media_ids=[media.media_id, media2.media_id])
         else:
             post_result = self.api.update_status(status=text)
             
