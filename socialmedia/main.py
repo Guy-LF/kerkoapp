@@ -143,7 +143,7 @@ def compose_post(entry):
     remainder = 280 - len(temp)
     entry['post_text'] = temp.replace('-!#!-',entry['title'][:remainder])
     entry['add_image'] = True
-    log_ids(entry['guid']
+    log_ids(entry['guid'])
     return(entry)
 
 
