@@ -27,24 +27,20 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from platforms import Twitter
+import socialmediaconfig as config
 
-def get_previously_published():
-    return
 
-def parse_test():
-    d = feedparser.parse('./atomfeed-sample.xml')
-    itemlist = [x.guid for x in d['entries']]
-    return(d, itemlist)
+
 
 def getfeeds(url=None, url_funded=None, url_oa=None):
     """retrieve atom main feed, open access item ids, and lf funded item ids. """
     
     #testing urls 
     if ((not url) and (not url_funded) and (not url_oa)):
-        url="https://demo.kerko.whiskyechobravo.com/bibliography/atom.xml"
-        url_funded="https://demo.kerko.whiskyechobravo.com/bibliography/atom.xml?topic=JTZGXUV6"
-        url_oa="https://demo.kerko.whiskyechobravo.com/bibliography/atom.xml?topic=Z8LT6QZG"
-    
+        url = config.url
+        url_funded = config.url_funded
+        url_oa = config.url_oa
+
     #pull main feed and list if ids
     feed = feedparser.parse(url)
     feed_ids = [x.guid for x in feed['entries']]
@@ -143,7 +139,7 @@ def compose_post(entry):
     """return text, media intended for posting to social media
     likey needs to pick different media depending on whether project is LF funded or not (maybe other tags as well) 
     """
-    temp = f"{entry['author']}: -!#!- {entry['url']} #lipedema #medtwitter"
+    temp = f"{entry['author']}: -!#!- {entry['url']} #lipedema"
     remainder = 280 - len(temp)
     entry['post_text'] = temp.replace('-!#!-',entry['title'][:remainder])
     entry['add_image'] = True
@@ -161,10 +157,10 @@ def log_ids(item_guid):
 def main():  
     print(f"------ begin post cycle at {datetime.now().strftime('%Y:%m:%d %H:%M:%S %Z %z')} --------")
     
-    max_post = 5 #used for testing, limits number of new records posted to social media
-    timeout = 20 #number of seconds of rest between each post
-    repeat_post_number = 0 #how many times should the set of posts be repeated? 0 means each item is posted only once. 
-    repeat_post_delay = (3600*12) #number of seconds to wait between reposts of the series
+    max_post = config.max_post #used for testing, limits number of new records posted to social media
+    timeout = config.timeout #number of seconds of rest between each post
+    repeat_post_number = config.repeat_post_number  #how many times should the set of posts be repeated? 0 means each item is posted only once. 
+    repeat_post_delay = config.repeat_post_delay #number of seconds to wait between reposts of the series
     
     feeds = getfeeds()
     history = get_history()
@@ -185,6 +181,7 @@ def main():
             print(f"reposting this series {repeat_post_number} more times with {repeat_post_delay} seconds between cycles")
             print(f"beginning at {datetime.now().strftime('%Y:%m:%d %H:%M:%S %Z %z')}")
             sleep(repeat_post_delay)
+    print(f" ------- wrapping up at {datetime.now().strftime('%Y:%m:%d %H:%M:%S %Z %z')}")
     return()
 
 
