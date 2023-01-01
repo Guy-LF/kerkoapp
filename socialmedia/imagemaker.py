@@ -23,7 +23,7 @@ def main():
 
     fontname = "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf" #or -Bold.ttf  
     fontsize = 11   
-    text = "Gross et al. (2015) have demonstrated that about a quarter\nof hits would typically be lost to keyword searchers\n.\n"
+    text = format_text(("Gross et al. (2015) have demonstrated that about a quarter of hits would typically be lost to keyword searchers" * 10))
     
     colorText = "black"
     colorOutline = "red"
