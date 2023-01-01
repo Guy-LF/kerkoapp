@@ -50,7 +50,7 @@ def getfeeds(url=None, url_funded=None, url_oa=None):
     lf_funded_ids = [x.guid for x in \
         feedparser.parse(url_funded)['entries']]
     
-    print(f"found {len(feed)} items in main feed")
+    print(f"found {len(feed_ids)} items in main feed")
     return({
         "feed":feed,
         "feed_ids":feed_ids,
