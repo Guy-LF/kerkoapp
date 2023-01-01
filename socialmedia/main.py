@@ -173,7 +173,7 @@ def main():
         for x in parsed_docket[:max_post]:
             print(f"posting {x['guid']}")
             t.post(open_access=x['open access'], funded=x['funded'], add_image=True, text=x['post_text'], 
-                   title=x['title'], author=x['author'],year=x['year'], abstract=x['abstract'])
+                title=x['title'], author=x['author'],year=x['year'], abstract=x['abstract'])
             log_ids(x['guid'])
             sleep(timeout)
         repeat_post_number -= 1
