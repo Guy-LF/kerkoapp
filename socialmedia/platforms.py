@@ -69,7 +69,7 @@ class Twitter():
                 media = self.api.media_upload("lf_legato_funded_oa.png")
             
             #create image of abstract
-            x = im.main(title="Not available", abstract=text, author="Not available", year="Not available")       
+            x = im.main(title=title, abstract=abstract, author=author, year=year)       
             media2 = self.api.media_upload("abstract.png")
         else:
             media = None
