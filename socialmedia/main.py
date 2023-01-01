@@ -13,8 +13,7 @@ intent is to
 
 3) Post to SM
 3a) if multiple new items, space posts out over time.  Do not tweet all at once.
-3b)  bonus points -- trigger some notification to communications staff to acknowledge that a tweet was made. possibly DM to self. 
-3c) consider cross posting to multiple SM accounts -- eg., LinkedIn - https://pypi.org/project/python3-linkedin/
+3b) consider cross posting to multiple SM accounts -- eg., LinkedIn - https://pypi.org/project/python3-linkedin/
 """
 ####
 
