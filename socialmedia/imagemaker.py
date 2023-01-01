@@ -10,14 +10,14 @@ def test_post():
     return
 
 def getSize(txt, font):
-    testImg = Image.new('RGB', (0, 1))
+    testImg = Image.new('RGB', (1, 1))
     testDraw = ImageDraw.Draw(testImg)
     return testDraw.textsize(txt, font)
 
 def format_text(text=None):
     if not text:
         text = "0123456789"*100 # test string
-    return(re.sub("(.{80})", "\\1\n", text, 0, re.DOTALL))
+    return(re.sub("(.{100})", "\\1\n", text, 0, re.DOTALL))
 
 def main(title="", text=None, author="", year=""):
 
@@ -37,7 +37,8 @@ def main(title="", text=None, author="", year=""):
     width, height = getSize(text, font)
     img = Image.new('RGB', (width+4, height+4), colorBackground)
     d = ImageDraw.Draw(img)
-    d.text((2, height/2), fulltext, fill=colorText, font=font)
+    #d.text((2, height/2), fulltext, fill=colorText, font=font)
+    d.text((2, height), fulltext, fill=colorText, font=font)
     d.rectangle((0, 0, width+3, height+3), outline=colorOutline)
     #size = 500,500
     #img.thumbnail(size,Image.ANTIALIAS)
