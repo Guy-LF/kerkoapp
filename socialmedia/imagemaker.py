@@ -29,7 +29,7 @@ def main(title="Not available", abstract=None, author="Not available", year="Not
     if not abstract:
         abstract = "Not available"
     
-    fulltext = (f"First author: {author} year: {year}\n title: {format_text(text=title)}\n\n {format_text(text=abstract)}")
+    fulltext = (f"First author: {author} \tYear: {year}\n Title: {format_text(text=title)}\n\n {format_text(text=abstract)}")
     colorText = "black"
     colorOutline = "red"
     colorBackground = "white"
@@ -42,6 +42,5 @@ def main(title="Not available", abstract=None, author="Not available", year="Not
     #d.text((2, height/2), fulltext, fill=colorText, font=font)
     d.text((0, 0), fulltext, fill=colorText, font=font)
     d.rectangle((0, 0, width+3, height+3), outline=colorOutline)
-    #size = 500,500
-    #img.thumbnail(size,Image.ANTIALIAS)
+
     img.save("abstract.png")
