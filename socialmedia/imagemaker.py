@@ -29,7 +29,7 @@ def main(title="Not available", abstract=None, author="Not available", year="Not
     if not abstract:
         abstract = "Not available"
     
-    fulltext = format_text(text=f"First author: {author} year: {year}\n title: {title}\n {abstract}")
+    fulltext = format_text(text=f"First author: {author} year: {year}\n title: {title}\n\n {abstract}")
     colorText = "black"
     colorOutline = "red"
     colorBackground = "white"
