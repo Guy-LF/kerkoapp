@@ -1,9 +1,9 @@
 
 from PIL import Image, ImageDraw, ImageFont
-import main
+import platforms
 
 def test_post():
-    a = main.Twitter()
+    a = platforms.Twitter()
     media = a.api.media_upload("test.png")
     b=a.api.update_status(status="hello", media_ids=[media.media_id])
     return
