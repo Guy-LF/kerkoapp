@@ -35,9 +35,9 @@ def main(title="", text=None, author="", year=""):
 
     font = ImageFont.truetype(fontname, fontsize)
     width, height = getSize(text, font)
-    img = Image.new('RGB', (width+4, height+4), colorBackground)
+    img = Image.new('RGB', (width+10, height+4), colorBackground)
     d = ImageDraw.Draw(img)
     d.text((2, height/2), fulltext, fill=colorText, font=font)
-    d.rectangle((0, 0, width+3, height+3), outline=colorOutline)
-    img.thumbnail((600,400))
+    d.rectangle((0, 0, width+10, height+3), outline=colorOutline)
+    img.thumbnail((6000,4000))
     img.save("test.png")
