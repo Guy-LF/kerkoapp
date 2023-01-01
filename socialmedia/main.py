@@ -22,6 +22,7 @@ intent is to
 import feedparser
 import os
 from time import sleep
+from datetime import datetime
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -53,6 +54,8 @@ def getfeeds(url=None, url_funded=None, url_oa=None):
         feedparser.parse(url_oa)['entries']]
     lf_funded_ids = [x.guid for x in \
         feedparser.parse(url_funded)['entries']]
+    
+    print(f"found {len(feed)} items in main feed")
     return({
         "feed":feed,
         "feed_ids":feed_ids,
@@ -70,8 +73,7 @@ def get_history():
 def compare_to_history(feed_ids, history):
     """return list of item ids from feed that are NOT recorded in the history logfile"""
     postable_ids = [x for x in feed_ids if (x not in history)]
-    print(f"found {len(postable_ids)} postable items of {len(history)} candidate items")
-    
+    print(f"found {len(postable_ids)} postable items relative to {len(history)} previously posted items")
     return(postable_ids)
     
 def harvest_item_data(feed, postable_ids, openaccess_ids, lf_funded_ids):
@@ -156,18 +158,33 @@ def log_ids(item_guid):
     return
 
 
-def main():    
+def main():  
+    print(f"------ begin post cycle at {datetime.now().strftime('%Y:%m:%d %H:%M:%S %Z %z')} --------")
+    
+    max_post = 5 #used for testing, limits number of new records posted to social media
+    timeout = 20 #number of seconds of rest between each post
+    repeat_post_number = 0 #how many times should the set of posts be repeated? 0 means each item is posted only once. 
+    repeat_post_delay = (3600*12) #number of seconds to wait between reposts of the series
+    
     feeds = getfeeds()
     history = get_history()
     postable_ids = compare_to_history(feeds['feed_ids'],history)
     docket = harvest_item_data(feeds['feed'],postable_ids,feeds['openaccess_ids'],feeds['lf_funded_ids'])    
     parsed_docket = parse_docket(docket)
     t = Twitter()
-    for x in parsed_docket[:5]:
-        print(f"posting {x['guid']}")
-        t.post(open_access=x['open access'], funded=x['funded'], add_image=True, text=x['post_text'])
-        log_ids(x['guid'])
-        sleep(20)
+    
+    while repeat_post_number >= 0:
+        print(f"--- {repeat_post_number} cycles of posts remaining")
+        for x in parsed_docket[:max_post]:
+            print(f"posting {x['guid']}")
+            t.post(open_access=x['open access'], funded=x['funded'], add_image=True, text=x['post_text'])
+            log_ids(x['guid'])
+            sleep(timeout)
+        repeat_post_number -= 1
+        if repeat_post_number > 0:
+            print(f"reposting this series {repeat_post_number} more times with {repeat_post_delay} seconds between cycles")
+            print(f"beginning at {datetime.now().strftime('%Y:%m:%d %H:%M:%S %Z %z')}")
+            sleep(repeat_post_delay)
     return()
 
 
