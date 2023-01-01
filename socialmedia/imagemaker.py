@@ -27,7 +27,7 @@ def main(title=None, text=None, author=None, year=None):
     if not text:
         text = format_text(("Gross et al. (2015) have demonstrated that about a quarter of hits would typically be lost to keyword searchers" * 10))
     
-    full_text = f"{author} {year}\n title: {title}\n {text}"
+    fulltext = f"{author} {year}\n title: {title}\n {text}"
     colorText = "black"
     colorOutline = "red"
     colorBackground = "white"
