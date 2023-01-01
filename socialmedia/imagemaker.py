@@ -19,13 +19,13 @@ def format_text(text=None):
         text = "0123456789"*100 # test string
     return(re.sub("(.{64})", "\\1\n", text, 0, re.DOTALL))
 
-def main(title=None, text=None, author=None, year=None):
+def main(title="", text=None, author="", year=""):
 
     fontname = "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf" #or -Bold.ttf  
     fontsize = 11 
     
     if not text:
-        text = format_text(("Gross et al. (2015) have demonstrated that about a quarter of hits would typically be lost to keyword searchers" * 10))
+        text = format_text(("Gross et al. (2015) have demonstrated that about a quarter of hits would typically be lost to keyword searchers" * 50))
     
     fulltext = f"{author} {year}\n title: {title}\n {text}"
     colorText = "black"
