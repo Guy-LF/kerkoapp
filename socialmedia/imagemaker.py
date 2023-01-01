@@ -18,8 +18,9 @@ def main():
     colorOutline = "red"
     colorBackground = "white"
 
-
-    font = ImageFont.truetype(fontname, fontsize)
+    #font = ImageFont.load_default().font
+    #font = ImageFont.truetype(fontname, fontsize)
+    font = ImageFont.truetype(font=None, size=fontsize, index=0, encoding='', layout_engine=None)
     width, height = getSize(text, font)
     img = Image.new('RGB', (width+4, height+4), colorBackground)
     d = ImageDraw.Draw(img)
