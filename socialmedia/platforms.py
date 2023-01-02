@@ -4,6 +4,7 @@ import os
 from time import sleep
 from dotenv import load_dotenv
 import imagemaker as im 
+import socialmediaconfig as config
 load_dotenv()
   
 class Twitter():
