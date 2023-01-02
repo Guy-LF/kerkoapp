@@ -50,9 +50,12 @@ class Twitter():
             sleep(20)
         return
     
-    def notify(self):
+    def notify(self, text=None):
       """ideally this will send a DM to the social media account to alert them that new info was recently posted"""
-      #not implemented
+      if not text:
+          text = "A post has been made by the Legato library to social media"
+      for person in config.notified_twitter_accounts:
+          x = self.api.send_direct_message(person,text)
       return
     
     def post(self,open_access=False, funded=False, add_image=True, text="This is a test", 
