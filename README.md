@@ -242,7 +242,18 @@ to your `.env` file if you wish to override their default values:
 * `KERKO_DOWNLOAD_CITATIONS_MAX_COUNT`: Limit over which the record download
   button should be hidden from search results pages. Defaults to `0` (i.e. no
   limit).
-* `KERKO_FACET_COLLAPSING`: Allow collapsible facets. Defaults to `False`.
+* `KERKO_FEEDS`: A list of syndication feed formats to publish. Defaults to
+  `['atom']`. If set to an empty list, no web feed will be provided. The only
+  supported format is `'atom'`.
+* `KERKO_FEEDS_MAX_DAYS`: The age (in number of days) of the oldest items
+  allowed into web feeds. The Date field of the items are used for that purpose,
+  and when no date is available, the date the item was added to Zotero is used
+  instead. Defaults to `0` (no age limit). Unless your goal is to promote recent
+  literature only, you should probably ignore this setting. Note: Items with
+  missing dates will be considered as very recent, to prevent them from being
+  excluded from feeds. For the same reason, items whose date lack the month
+  and/or the day will be considered as from the 12th month of the year and/or
+  the last day of the month.
 * `KERKO_FULLTEXT_SEARCH`: Allow full-text search of attached documents.
   Defaults to `True`. You really should set this to `False` if you do not intend
   to attach any documents, otherwise the users may be offered irrelevant options
@@ -313,8 +324,20 @@ to your `.env` file if you wish to override their default values:
   facet weight and facet title, separated by colons). Each specified collection
   will appear in Kerko as a facet where subcollections will be represented as
   values within the facet. The weight determines a facet's position relative to
-  the other facets. The value of `KERKOAPP_COLLECTION_FACETS` should be defined
-  within a single string, on a single line.
+  the other facets. The facet title will be displayed by Kerko and, if desired,
+  may be different from the collection's name in Zotero (you could use this to
+  differentiate the names of collections made publicly available in Kerko
+  through facets from those used internally in your Zotero library). Note that
+  for a collection-based facet to appear in the search interface, all of the
+  following conditions must be met:
+  * The specified collection key corresponds to a top-level collection in the
+    Zotero library.
+  * The specified collection has at least one subcollection that contains at
+    least one item that is not excluded by Kerko (meaning the item is not
+    excluded by other settings such as `KERKOAPP_ITEM_EXCLUDE_RE` or
+    `KERKOAPP_ITEM_INCLUDE_RE`).
+  * The value of `KERKOAPP_COLLECTION_FACETS` should be defined within a single
+    string, on a single line.
 * `KERKOAPP_EXCLUDE_DEFAULT_BADGES`: List of badges (identified by key) to
   exclude from those created by default. If that list contains the value '*', no
   badge will be created by default. Please refer to the implementation of
@@ -351,6 +374,12 @@ to your `.env` file if you wish to override their default values:
   from those created by default. Caution: at least one sort must remain for the
   application to start. Please refer to the implementation of
   `kerko.composer.Composer.init_default_sorts()` for the list of default sorts.
+* `KERKOAPP_FACET_INITIAL_LIMIT`: Limits the number of facet values initially
+  shown on search results pages. If more values are available, a "show more"
+  button will let the user expand the list. Defaults to `0` (i.e. no limit).
+* `KERKOAPP_FACET_INITIAL_LIMIT_LEEWAY`: If the number of facet values exceeds
+  `KERKOAPP_FACET_INITIAL_LIMIT` by this tolerance margin or less, all values
+  will be initially shown. Defaults to `0` (i.e. no tolerance margin).
 * `KERKOAPP_MIME_TYPES`: List of allowed MIME types for attachments. Defaults to
   `"application/pdf"`.
 * `KERKOAPP_ITEM_EXCLUDE_RE`: Regex to use to exclude items based on their tags.
@@ -358,6 +387,11 @@ to your `.env` file if you wish to override their default values:
   excluded. If empty (which is the default), no items will be excluded unless
   `KERKOAPP_ITEM_INCLUDE_RE` is set, in which case items that do not have any
   tag that matches it will be excluded.
+* `KERKOAPP_ITEM_INCLUDE_RE`: Regex to use to include items based on their tags.
+  Any item which does not have a tag that matches this regular expression will
+  be ignored. If this value is empty (which is the default), all items will be
+  accepted unless `KERKOAPP_ITEM_EXCLUDE_RE` is set which can cause some items
+  to be rejected.
 * `KERKOAPP_TAG_EXCLUDE_RE`: Regex to use to exclude tags. The default value
   causes any tag that begins with an underscore ('_') to be ignored by Kerko.
   Note that record exports (downloads) always include all tags regardless of
@@ -375,9 +409,9 @@ to your `.env` file if you wish to override their default values:
   an underscore ('_') is rejected.
 * `KERKOAPP_CHILD_INCLUDE_RE`: Regex to use to include children (e.g. notes,
   attachments) based on their tags. Any child which does not have a tag that
-  matches this regular expression will be ignored. If empty, all children will
-  be accepted unless `KERKOAPP_CHILD_EXCLUDE_RE` is set and causes some to be
-  rejected.
+  matches this regular expression will be ignored. If this value is empty (which
+  is the default), all children will be accepted unless
+  `KERKOAPP_CHILD_EXCLUDE_RE` is set and causes some to be rejected.
 * `LOGGING_LEVEL`: Severity of events to track. Allowed values are `DEBUG`,
   `INFO`, `WARNING`, `ERROR`, `CRITICAL`. Defaults to `DEBUG` if app is running
   in the development environment, and to `WARNING` in the production
