@@ -2,13 +2,13 @@
 #note that a separate .env file is necessary to provide access keys for social media accounts
 
 #main ATOM url
-url="https://demo.kerko.whiskyechobravo.com/bibliography/atom.xml"
+url="http://lipedemalib1222.staging.whiskyechobravo.com/bibliography/atom.xml"
 
 #ATOM url for lf funded facet
-url_funded="https://demo.kerko.whiskyechobravo.com/bibliography/atom.xml?topic=JTZGXUV6"
+url_funded="http://lipedemalib1222.staging.whiskyechobravo.com/bibliography/atom.xml?topic=LF+Funded"
 
 #ATOM url for open access facet
-url_oa="https://demo.kerko.whiskyechobravo.com/bibliography/atom.xml?topic=Z8LT6QZG"
+url_oa="http://lipedemalib1222.staging.whiskyechobravo.com/bibliography/atom.xml?topic=Open+Access"
 
 
 #data governing how many times each item is posted and delays between postings
