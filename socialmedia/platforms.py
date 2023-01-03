@@ -52,12 +52,8 @@ class Twitter():
         return
     
     def notify(self, text=None):
-      """ideally this will send a DM to the social media account to alert them that new info was recently posted"""
-      #currentkly does not work - may require OAuth2.0 tokens
-      if not text:
-          text = "A post has been made by the Legato library to social media"
-      for person in config.notified_twitter_accounts:
-          x = self.api.send_direct_message(person,text)
+      """ideally this will send a message to alert account admins that new info was recently posted"""
+      #currently does not work - may require OAuth2.0 tokens if using twitter
       return
     
     def post(self,open_access=False, funded=False, add_image=True, text="This is a test", 
