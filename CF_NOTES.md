@@ -23,3 +23,5 @@ Blocks of newly introduced or changed code relative to orginal whiskey bravo ker
 * If item has `[LF] Open Access` tag  -- change "Online Resource" function to acknowledge that full text is available through the URL.
 
 * If item has `[LF] Missing files` tag - add note to item detail that the liplibrary is not in possession of the article
+
+* If item has a tag that matches the `^\[LF\] Alert.*$` regular expression, it gets excluded from Atom feeds. The custom boolean field `lf_feed_exclude` implements this flag, in `config.py`.
