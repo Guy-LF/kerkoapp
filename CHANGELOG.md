@@ -1,5 +1,34 @@
 # Changelog
 
+## Latest (unreleased)
+
+TBD.
+
+
+## 0.9 (2022-12-29)
+
+*Warning:* Upgrading from version 0.8.x or earlier will require that you rebuild
+your search index. Use the following commands, then restart the application:
+
+```bash
+flask kerko clean index
+flask kerko sync index
+```
+
+Features:
+
+- Add settings to control the initial limit on the number of values to show
+  under each facet. When the initial limit is reached, a "show more" button
+  allow to user to expand the full list. See `KERKOAPP_FACET_INITIAL_LIMIT` and
+  `KERKOAPP_FACET_INITIAL_LIMIT_LEEWAY`.
+- Read new settings `KERKO_FEEDS` and `KERKO_FEEDS_MAX_DAYS` from environment
+  variables.
+
+Backwards incompatible changes:
+
+- Remove the `KERKO_FACET_COLLAPSING` option.
+
+
 ## 0.8 (2021-11-16)
 
 *Warning:* Upgrading from version 0.7.x or earlier will require that you clean

@@ -32,7 +32,6 @@ class Config:
 
     def __init__(self):
         app_dir = pathlib.Path(env.str('FLASK_APP')).parent.absolute()
-        self.EXPLAIN_TEMPLATE_LOADING = True
 
         self.check_deprecated_options()
 
@@ -65,7 +64,6 @@ class Config:
         )
         self.KERKO_RESULTS_ATTACHMENT_LINKS = env.bool('KERKO_RESULTS_ATTACHMENT_LINKS', True)
         self.KERKO_RESULTS_URL_LINKS = env.bool('KERKO_RESULTS_URL_LINKS', True)
-        self.KERKO_FACET_COLLAPSING = env.bool('KERKO_FACET_COLLAPSING', False)
         self.KERKO_FULLTEXT_SEARCH = env.bool('KERKO_FULLTEXT_SEARCH', True)
         self.KERKO_PRINT_ITEM_LINK = env.bool('KERKO_PRINT_ITEM_LINK', False)
         self.KERKO_PRINT_CITATIONS_LINK = env.bool('KERKO_PRINT_CITATIONS_LINK', False)
@@ -78,25 +76,29 @@ class Config:
         self.KERKO_HIGHWIREPRESS_TAGS = env.bool('KERKO_HIGHWIREPRESS_TAGS', True)
         self.KERKO_RELATIONS_INITIAL_LIMIT = env.int('KERKO_RELATIONS_INITIAL_LIMIT', 5)
         self.KERKO_RELATIONS_LINKS = env.bool('KERKO_RELATIONS_LINKS', False)
+        self.KERKO_FEEDS = env.list('KERKO_FEEDS', ['atom'], subcast=str)
+        self.KERKO_FEEDS_MAX_DAYS = env.int('KERKO_FEEDS_MAX_DAYS', 0)
 
         self.KERKO_COMPOSER = Composer(
             whoosh_language=self.KERKO_WHOOSH_LANGUAGE,
             exclude_default_scopes=env.list(
                 'KERKOAPP_EXCLUDE_DEFAULT_SCOPES',
-                [] if self.KERKO_FULLTEXT_SEARCH else ['fulltext', 'metadata']
+                [] if self.KERKO_FULLTEXT_SEARCH else ['fulltext', 'metadata'],
                 # The 'metadata' scope does the same as the 'all' scope when
                 # full-text search is disabled, hence its removal in that case.
+                subcast=str,
             ),
             exclude_default_fields=env.list(
                 'KERKOAPP_EXCLUDE_DEFAULT_FIELDS',
-                [] if self.KERKO_FULLTEXT_SEARCH else ['text_docs']
+                [] if self.KERKO_FULLTEXT_SEARCH else ['text_docs'],
+                subcast=str,
             ),
-            exclude_default_facets=env.list('KERKOAPP_EXCLUDE_DEFAULT_FACETS', []),
-            exclude_default_sorts=env.list('KERKOAPP_EXCLUDE_DEFAULT_SORTS', []),
+            exclude_default_facets=env.list('KERKOAPP_EXCLUDE_DEFAULT_FACETS', [], subcast=str),
+            exclude_default_sorts=env.list('KERKOAPP_EXCLUDE_DEFAULT_SORTS', [], subcast=str),
             exclude_default_citation_formats=env.list(
-                'KERKOAPP_EXCLUDE_DEFAULT_CITATION_FORMATS', []
+                'KERKOAPP_EXCLUDE_DEFAULT_CITATION_FORMATS', [], subcast=str
             ),
-            exclude_default_badges=env.list('KERKOAPP_EXCLUDE_DEFAULT_BADGES', []),
+            exclude_default_badges=env.list('KERKOAPP_EXCLUDE_DEFAULT_BADGES', [], subcast=str),
             default_item_include_re=env.str('KERKOAPP_ITEM_INCLUDE_RE', ''),
             default_item_exclude_re=env.str('KERKOAPP_ITEM_EXCLUDE_RE', ''),
             default_tag_include_re=env.str(
@@ -111,7 +113,9 @@ class Config:
             default_child_exclude_re=env.str(
                 'KERKOAPP_CHILD_EXCLUDE_RE', env.str('KERKOAPP_CHILD_BLACKLIST_RE', r'^_')
             ),
-            mime_types=env.list('KERKOAPP_MIME_TYPES', ['application/pdf']),
+            mime_types=env.list('KERKOAPP_MIME_TYPES', ['application/pdf'], subcast=str),
+            facet_initial_limit=env.int('KERKOAPP_FACET_INITIAL_LIMIT', 0),
+            facet_initial_limit_leeway=env.int('KERKOAPP_FACET_INITIAL_LIMIT_LEEWAY', 0),
         )
 
         # Add collection facets.
@@ -123,6 +127,8 @@ class Config:
                         title=title,
                         weight=int(weight),
                         collection_key=collection_key,
+                        initial_limit=env.int('KERKOAPP_FACET_INITIAL_LIMIT', 0),
+                        initial_limit_leeway=env.int('KERKOAPP_FACET_INITIAL_LIMIT_LEEWAY', 0),
                     )
                 )
 
@@ -271,6 +277,8 @@ class Config:
                 title=_('Topic'),
                 filter_key='topic',
                 weight=100,
+                initial_limit=env.int('KERKOAPP_FACET_INITIAL_LIMIT', 0),
+                initial_limit_leeway=env.int('KERKOAPP_FACET_INITIAL_LIMIT_LEEWAY', 0),
                 field_type=ID(stored=True),
                 extractor=extractors.TransformerExtractor(
                     extractor=extractors.TagsFacetExtractor(
@@ -298,6 +306,8 @@ class Config:
                 title=_('Publication'),
                 filter_key='openaccess',
                 weight=320,  # Position after the "Publication year" facet.
+                initial_limit=env.int('KERKOAPP_FACET_INITIAL_LIMIT', 0),
+                initial_limit_leeway=env.int('KERKOAPP_FACET_INITIAL_LIMIT_LEEWAY', 0),
                 field_type=ID(stored=True),
                 extractor=extractors.TransformerExtractor(
                     extractor=extractors.TagsFacetExtractor(
@@ -332,6 +342,17 @@ class Config:
                 extractor=MatchesTagExtractor(r'^\[LF\] Missing files$', re.IGNORECASE),
             )
         )
+        # CF add flag for excluding item from web feeds.
+        self.KERKO_COMPOSER.add_field(
+            FieldSpec(
+                key='lf_feed_exclude',
+                field_type=BOOLEAN,
+                extractor=MatchesTagExtractor(r'^\[LF\] Alert.*$', re.IGNORECASE),
+            )
+        )
+
+        # CF configure web feed filter.
+        self.KERKO_FEEDS_REJECT_ANY = {'lf_feed_exclude': [True]}
 
         # CF override list of fields to retrieve with search results.
         self.KERKO_RESULTS_FIELDS = ['id', 'attachments', 'bib', 'coins', 'data', 'url', 'lf_open_access']
@@ -368,9 +389,8 @@ class DevelopmentConfig(Config):
 
         self.CONFIG = 'development'
         self.DEBUG = True
-        self.KERKO_ZOTERO_START = env.int('KERKO_ZOTERO_START', 0)
-        self.KERKO_ZOTERO_END = env.int('KERKO_ZOTERO_END', 0)
         self.LOGGING_LEVEL = env.str('LOGGING_LEVEL', 'DEBUG')
+        # self.EXPLAIN_TEMPLATE_LOADING = True
 
 
 class ProductionConfig(Config):
