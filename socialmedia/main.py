@@ -104,7 +104,7 @@ def harvest_item_data(feed, postable_ids, openaccess_ids, lf_funded_ids):
         except:
             author = ''
         try:
-            year = entry.updated_parsed.tm_year                   # this seems to be article publication date (year)
+            year = f"({entry.updated_parsed.tm_year})"                   # this seems to be article publication date (year)
         except:
             year = ''
         try:
@@ -138,7 +138,7 @@ def compose_post(entry):
     """return text, media intended for posting to social media
     likey needs to pick different media depending on whether project is LF funded or not (maybe other tags as well) 
     """
-    temp = f"{entry['author']} ({entry['year']}): -!#!- {entry['url']} #lipedema"
+    temp = f"{entry['author']} {entry['year']}: -!#!- {entry['url']} #lipedema"
     remainder = 280 - len(temp)
     entry['post_text'] = temp.replace('-!#!-',entry['title'][:remainder])
     entry['add_image'] = True
