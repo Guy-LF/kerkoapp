@@ -21,6 +21,18 @@ def format_text(text=None):
     dedented_text = textwrap.dedent(text=text)
     return(wrapper.fill(text=dedented_text))
 
+def add_watermark(img, watermark_path='lf_logo.png'):
+    width, height = img.size
+    
+    watermark = Image.open(watermark_path).thumbnail((width*.5,height*.5))
+    
+    water_width, water_height = watermark.size
+    watermark_position = ((width - water_width)/2 , ((height - water_height)/2))
+    merge_img = Image.new('RGBA', (width, height), (0,0,0,0))
+    merge_img.paste(img, (0,0)),
+    merge_img.paste(watermark, watermark_position, mask=watermark)
+    return(merge_img)
+    
 def main(title="Not available", abstract=None, author="Not available", year="Not available"):
 
     fontname = "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf" #or -Bold.ttf  
@@ -38,6 +50,7 @@ def main(title="Not available", abstract=None, author="Not available", year="Not
     font = ImageFont.truetype(fontname, fontsize)
     width, height = getSize(fulltext, font)
     img = Image.new('RGB', (width+4, height+4), colorBackground)
+    #img = add_watermark(img)
     d = ImageDraw.Draw(img)
     #d.text((2, height/2), fulltext, fill=colorText, font=font)
     d.text((0, 0), fulltext, fill=colorText, font=font)
