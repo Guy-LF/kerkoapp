@@ -138,7 +138,7 @@ def compose_post(entry):
     """return text, media intended for posting to social media
     likey needs to pick different media depending on whether project is LF funded or not (maybe other tags as well) 
     """
-    temp = f"{entry['author']} {entry['year']}: -!#!- {entry['url']} #lipedema #liplibrary"
+    temp = f"{entry['author']} {entry['year']}: -!#!- {entry['url']} #lipedema"
     remainder = 280 - len(temp)
     entry['post_text'] = temp.replace('-!#!-',entry['title'][:remainder])
     entry['add_image'] = True
