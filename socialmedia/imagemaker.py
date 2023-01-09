@@ -30,8 +30,10 @@ def add_watermark(img, watermark_path='lf_logo.png'):
     water_width, water_height = watermark.size
     
     watermark_position = ((width - water_width)/2 , ((height - water_height)/2))
+    print(f"watermark position {watermark_position}")
     merge_img = Image.new('RGBA', (width, height), (0,0,0,0))
     merge_img.paste(img, (0,0))
+    print(type(watermark))
     merge_img.paste(watermark, watermark_position, mask=watermark)
     return(merge_img)
     
