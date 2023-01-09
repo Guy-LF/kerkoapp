@@ -25,7 +25,8 @@ def add_watermark(img, watermark_path='lf_logo.png'):
     width, height = img.size
     
     #resize watermark file to 50% of base file
-    watermark = Image.open(watermark_path).thumbnail((width*.5,height*.5))
+    watermark = Image.open(watermark_path)
+    watermark.thumbnail((width*.5,height*.5))
     water_width, water_height = watermark.size
     
     watermark_position = ((width - water_width)/2 , ((height - water_height)/2))
