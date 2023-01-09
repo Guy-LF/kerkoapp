@@ -55,7 +55,7 @@ def main(title="Not available", abstract=None, author="Not available", year="Not
     if not abstract:
         abstract = "Not available"
     
-    fulltext = (f"First author: {author}      Year: {year}\n Title: {format_text(text=title)}\n\n {format_text(text=abstract)}")
+    fulltext = (f"First author: {author}      Year: {year}\nTitle: {format_text(text=title)}\n\n {format_text(text=abstract)}")
     fulltext = fulltext + "\n\nposted to Lipedema Foundation Legato Library\nlipedema.org/library"
     colorText = "black"
     colorOutline = "red"
@@ -64,11 +64,11 @@ def main(title="Not available", abstract=None, author="Not available", year="Not
 
     font = ImageFont.truetype(fontname, fontsize)
     width, height = getSize(fulltext, font)
-    img = Image.new('RGBA', (width+4, height+4), colorBackground)
+    img = Image.new('RGBA', (width+10, height+10), colorBackground)
     img = add_watermark(img)
     d = ImageDraw.Draw(img)
     #d.text((2, height/2), fulltext, fill=colorText, font=font)
-    d.text((0, 0), fulltext, fill=colorText, font=font)
+    d.text((5, 5), fulltext, fill=colorText, font=font)
     d.rectangle((0, 0, width+3, height+3), outline=colorOutline)
 
     img.save("abstract.png")
