@@ -56,6 +56,7 @@ def main(title="Not available", abstract=None, author="Not available", year="Not
         abstract = "Not available"
     
     fulltext = (f"First author: {author}      Year: {year}\n Title: {format_text(text=title)}\n\n {format_text(text=abstract)}")
+    fulltext = fulltext += "\n\nposted to Lipedema Foundation Legato Library\nlipedema.org/library"
     colorText = "black"
     colorOutline = "red"
     colorBackground = "white"
