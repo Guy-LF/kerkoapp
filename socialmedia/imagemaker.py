@@ -30,10 +30,11 @@ def add_watermark(img, watermark_path='lf_logo.png', scale = 1.1, opacity=.6, br
         watermark.convert('RGBA')
     watermark.thumbnail((width*scale, height*scale))
     
-    #make watermark transparent
+    #make watermark transparent and b/w
     alpha_channel = watermark.split()[3]
     alpha_channel = ImageEnhance.Brightness(alpha_channel).enhance(opacity)
     watermark = ImageEnhance.Brightness(watermark).enhance(brightness)
+    watermark = ImageEnhance.Contrast(watermark).enhance(0)
     watermark.putalpha(alpha_channel)
     
     #position watermark
