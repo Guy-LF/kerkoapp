@@ -21,7 +21,7 @@ def format_text(text=None):
     dedented_text = textwrap.dedent(text=text)
     return(wrapper.fill(text=dedented_text))
 
-def add_watermark(img, watermark_path='lf_logo.png', scale = 1.1, opacity=1.0, brightness=1.0 , contrast=2.0):
+def add_watermark(img, watermark_path='lf_logo.png', scale = 1.1, opacity=1.0, brightness=0.9 , contrast=1.8):
     width, height = img.size
  
     #resize watermark file to 50% of base file
