@@ -56,7 +56,7 @@ def main(title="Not available", abstract=None, author="Not available", year="Not
         abstract = "Not available"
     
     fulltext = (f"First author: {author}      Year: {year}\nTitle: {format_text(text=title)}\n\n {format_text(text=abstract)}")
-    fulltext = fulltext + "\n\nposted to Lipedema Foundation Legato Library\nlipedema.org/library"
+    fulltext = fulltext + "\n\nPosted to Lipedema Foundation Legato Library\nLipedema.org/library"
     colorText = "black"
     colorOutline = "red"
     colorBackground = "white"
@@ -69,6 +69,6 @@ def main(title="Not available", abstract=None, author="Not available", year="Not
     d = ImageDraw.Draw(img)
     #d.text((2, height/2), fulltext, fill=colorText, font=font)
     d.text((5, 5), fulltext, fill=colorText, font=font)
-    d.rectangle((0, 0, width+3, height+3), outline=colorOutline)
+    d.rectangle((0, 0, width+9, height+9), outline=colorOutline)
 
     img.save("abstract.png")
