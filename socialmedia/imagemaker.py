@@ -21,19 +21,22 @@ def format_text(text=None):
     dedented_text = textwrap.dedent(text=text)
     return(wrapper.fill(text=dedented_text))
 
-def add_watermark(img, watermark_path='lf_logo.png', scale = 0.9):
+def add_watermark(img, watermark_path='lf_logo.png', scale = 0.9, alpha=128, opacity=.5):
     width, height = img.size
-    
+ 
     #resize watermark file to 50% of base file
     watermark = Image.open(watermark_path)
+    if watermark.mode != 'RGBA':
+        watermark.convert('RGBA')
     watermark.thumbnail((width*scale, height*scale))
+    watermark.putalpha(alpha)
     water_width, water_height = watermark.size
     
     watermark_position = (int((width - water_width)/2) , int((height - water_height)/2))
-    print(f"watermark position {watermark_position}")
+    
     merge_img = Image.new('RGBA', (width, height), (0,0,0,0))
     merge_img.paste(img, (0,0))
-    print(type(watermark))
+    
     merge_img.paste(watermark, watermark_position, mask=watermark)
     return(merge_img)
     
@@ -53,7 +56,7 @@ def main(title="Not available", abstract=None, author="Not available", year="Not
 
     font = ImageFont.truetype(fontname, fontsize)
     width, height = getSize(fulltext, font)
-    img = Image.new('RGB', (width+4, height+4), colorBackground)
+    img = Image.new('RGBA', (width+4, height+4), colorBackground)
     img = add_watermark(img)
     d = ImageDraw.Draw(img)
     #d.text((2, height/2), fulltext, fill=colorText, font=font)
