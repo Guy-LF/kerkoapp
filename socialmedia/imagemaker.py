@@ -1,5 +1,5 @@
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 import platforms
 import textwrap
 
@@ -21,7 +21,7 @@ def format_text(text=None):
     dedented_text = textwrap.dedent(text=text)
     return(wrapper.fill(text=dedented_text))
 
-def add_watermark(img, watermark_path='lf_logo.png', scale = 0.9, alpha=128, opacity=.5):
+def add_watermark(img, watermark_path='lf_logo.png', scale = 0.9, opacity=.5):
     width, height = img.size
  
     #resize watermark file to 50% of base file
@@ -29,9 +29,14 @@ def add_watermark(img, watermark_path='lf_logo.png', scale = 0.9, alpha=128, opa
     if watermark.mode != 'RGBA':
         watermark.convert('RGBA')
     watermark.thumbnail((width*scale, height*scale))
-    watermark.putalpha(alpha)
-    water_width, water_height = watermark.size
     
+    #make watermark transparent
+    alpha_channel = watermark.split()[3]
+    alpha_channel = ImageEnhance.Brightness(alpha_channel).enhance(opacity)
+    watermark.putalpha(alpha_channel)
+    
+    #position watermark
+    water_width, water_height = watermark.size
     watermark_position = (int((width - water_width)/2) , int((height - water_height)/2))
     
     merge_img = Image.new('RGBA', (width, height), (0,0,0,0))
