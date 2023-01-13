@@ -18,10 +18,10 @@ FLASK_ENV=production
 
 # Include/exclude from sync any items with the indicated tags or portion of tag.
 KERKOAPP_ITEM_INCLUDE_RE="^\[LL\]"
-KERKOAPP_ITEM_EXCLUDE_RE="^\[LL\] Confidential"
+KERKOAPP_ITEM_EXCLUDE_RE="^\[LF\] Confidential"
 
 # Only attachments/children with the listed tag of can be published.
-KERKOAPP_CHILD_INCLUDE_RE="^\[LL\] Shareable"
+KERKOAPP_CHILD_INCLUDE_RE="^\[LF\] Shareable"
 
 # For display purposes only incorporate tags related to the project ([LL] prefix).
 KERKOAPP_TAG_INCLUDE_RE="^\[LL\]"
