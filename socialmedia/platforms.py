@@ -47,7 +47,7 @@ class Twitter():
             sleep(delay)
             time -= 20
             print(f'destroyed {n}th like with {time} remaining')
-            if time <= 0;
+            if time <= 0:
                 return(True) #exit fxn if time elapsed
         return(True)
     
