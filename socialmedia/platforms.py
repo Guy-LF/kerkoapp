@@ -38,18 +38,18 @@ class Twitter():
             self.api.destroy_status(x.id)
         return(True)
     #necessary only for creating testing accounts
-    def kill_favorites(self):
+    def kill_favorites(self, time=900, delay=20):
         recent = self.api.get_favorites()
+        n = 0
         for x in recent:
             self.api.destroy_favorite(x.id)
+            n += 1
+            sleep(delay)
+            time -= 20
+            print(f'destroyed {n}th like with {time} remaining')
+            if time <= 0;
+                return(True) #exit fxn if time elapsed
         return(True)
-    def kill_favorites_count(self, count):
-        while count > 0:
-            self.kill_favorites()
-            print(count)
-            count -= 20
-            sleep(20)
-        return
     
     def notify(self, text=None):
       """ideally this will send a message to alert account admins that new info was recently posted"""
@@ -90,3 +90,7 @@ class Twitter():
 #        return
 #    def post():
 #        return
+def clean_likes(time=900, delay=20):
+    t = Twitter()
+    t.kill_favorites(time=time, delay=delay)
+    return(True)
