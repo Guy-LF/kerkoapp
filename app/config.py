@@ -187,7 +187,7 @@ class Config:
                 ),
                 're': r'^\s*PMCID\s*:\s*(.*)$',
             },
-            # The following IDs are often to short to be useful in searches.
+            # The following IDs are often too short to be useful in searches.
             {
                 'kwargs': dict(
                     key='cf_lfaward',
