@@ -1,4 +1,11 @@
 {# CF custom template #}
+
+{# Temporary workaround for a bug that was fixed in a later Kerko version (commit 63ce29b) #}
+{%- if not total_count %}
+    {%- set total_count = 0 %}
+    {%- set total_count_formatted = 0 %}
+{%- endif %}
+
 {% extends 'kerko/search.html.jinja2' %}
 
 {% block search_results_list %}
@@ -8,4 +15,3 @@
         {%- endfor %}
     </ul>
 {% endblock search_results_list %}
-
